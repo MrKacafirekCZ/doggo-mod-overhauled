@@ -13,6 +13,7 @@ Any dog with low health if close enough will eat from it if there is food inside
 You can also rename a dog bowl in an anvil to give it a name.  
 Only dogs with matching names will eat from it.  
 ![Imgur](https://imgur.com/kl5F8aP.jpg)
+To mine it, you need at least a stone pickaxe.  
 
 ### Tennis Ball:
 A small toy for your dog to play with.  
