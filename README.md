@@ -30,24 +30,28 @@ Added an ability for a dog to take a nap
 Changed the way to heal a dog
 
 ### Digging
-From time to time a dog may start digging. Give it some time and it may find some treasure. (But I wouldn't be the one expecting diamonds or netherite)
+From time to time a dog may start digging. Give it some time and it may find some treasure. (But I wouldn't be the one expecting diamonds or netherite)  
+![Imgur](https://imgur.com/AmWuH4n.jpg)  
 
 ### Healing
 There are two ways to heal a dog:  
 Place down a dog bowl and put food (preferably meat) in it by right-clicking on the dog bowl. If a dog is near a dog bowl and it's not on max health, it will try eating from it.  
-You can give food (preferably meat) to a dog by right-clicking on it. The dog will then hold it in its mouth and eat whenever it wants to.
+You can give food (preferably meat) to a dog by right-clicking on it. The dog will then hold it in its mouth and eat whenever it wants to.  
+![Imgur](https://imgur.com/mO8guVw.jpg)  
 
 ### Holding an item
 A dog can hold an item in its mouth at any time. Dogs prefer food over weapons in case you want your dog to become a warrior.
-
 ### Napping
-If you leave a dog sitting and walk a way, it will lay down and take a nap.
+If you leave a dog sitting and walk a way, it will lay down and take a nap.  
+![Imgur](https://imgur.com/meL0KBD.jpg)  
 
 ### Scratching its ear
-From time to time a dog may scratch its ear.
+From time to time a dog may scratch its ear.  
+![Imgur](https://imgur.com/5oSn0dm.jpg)  
 
 ### Stretching
-From time to time a dog may stretch.
+From time to time a dog may stretch.  
+![Imgur](https://imgur.com/VqhcrlT.jpg)  
 
 ## **Crafting Recipes**
 ### Dog Bowl
