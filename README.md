@@ -37,8 +37,9 @@ From time to time a dog may start digging. Give it some time and it may find som
 
 ### <ins>Healing</ins>
 There are two ways to heal a dog:  
-Place down a dog bowl and put food (preferably meat) in it by right-clicking on the dog bowl. If a dog is near a dog bowl and it's not on max health, it will try eating from it.  
-You can give food (preferably meat) to a dog by right-clicking on it. The dog will then hold it in its mouth and eat whenever it wants to.  
+1. Place down a dog bowl and put food (preferably meat) in it by right-clicking on the dog bowl. If a dog is near a dog bowl and it's not on max health, it will try eating from it.  
+2. You can give food (preferably meat) to a dog by right-clicking on it. The dog will then hold it in its mouth and eat whenever it wants to.
+
 ![Imgur](https://imgur.com/mO8guVw.jpg)  
 
 ### <ins>Holding an item</ins>
