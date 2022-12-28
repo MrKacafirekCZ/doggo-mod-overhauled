@@ -40,6 +40,14 @@ A dog can hold an item in its mouth at any time. Dogs prefer food over weapons i
 If you leave a dog sitting and walk a way, it will lay down and take a nap.  
 ![Imgur](https://imgur.com/meL0KBD.jpg)  
 
+### <ins>Playing fetch</ins>
+Just throwing the ball won't make a dog run after it.  
+To actually play fetch, you have to:
+1. Show the ball to the dog to make him interested.
+2. Once it's interested in the ball then you can throw it.
+
+![Imgur](https://imgur.com/Oa0JTWD.jpg)
+
 ### <ins>Scratching its ear</ins>
 From time to time a dog may scratch its ear.  
 ![Imgur](https://imgur.com/5oSn0dm.jpg)  
