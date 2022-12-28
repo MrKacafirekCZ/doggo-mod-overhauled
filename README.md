@@ -70,6 +70,10 @@ You can also recolor the dog bowl.
 - [Fabric](https://fabricmc.net/use/ "Fabric")
 - [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api "Fabric API")
 
+## **Optional mods / Tested mods**
+- [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/mod-menu)
+- [Roughly Enough Items](https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items)
+
 ## **Special thanks**
 Special thanks to plantskid for creating the doggo icon. [plantskid's Carrd](https://plantskid.carrd.co "plantskid's Carrd")  
 Special thanks to kaprai for creating the doggo logo. [kaprai's Twitter](https://twitter.com/kapraicraft "kaprai's Twitter")
