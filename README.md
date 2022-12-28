@@ -43,7 +43,7 @@ If you leave a dog sitting and walk a way, it will lay down and take a nap.
 ### <ins>Playing fetch</ins>
 Just throwing the ball won't make a dog run after it.  
 To actually play fetch, you have to:
-1. Show the ball to the dog to make him interested.
+1. Show the ball to the dog to make it interested.
 2. Once it's interested in the ball then you can throw it.
 
 ![Imgur](https://imgur.com/Oa0JTWD.jpg)
