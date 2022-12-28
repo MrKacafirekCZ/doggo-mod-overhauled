@@ -17,7 +17,7 @@ To break it, you need at least a stone pickaxe.
 
 ### <ins>Tennis Ball</ins>:
 A small toy for your dog to play with.  
-You can throw it by right-clicking it.  
+You can throw it by right-clicking it. (Though be careful when you're near glass panes)  
 ![Imgur](https://imgur.com/nOkmCKj.jpg)
 
 ## **Behavior and personality**
