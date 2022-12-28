@@ -71,7 +71,7 @@ You can also recolor the dog bowl.
 - [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api "Fabric API")
 
 ## **Optional mods / Tested mods**
-- [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/mod-menu)
+- [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
 - [Roughly Enough Items](https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items)
 
 ## **Special thanks**
