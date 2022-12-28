@@ -56,12 +56,15 @@ From time to time a dog may stretch.
 ![Imgur](https://imgur.com/VqhcrlT.jpg)  
 
 ## **Crafting Recipes**
+
 ### <ins>Dog Bowl</ins>
-You can use any dye.  
-![Imgur](https://imgur.com/oRQNaZp.jpg)
+You can use any dye in the recipe.  
+![Imgur](https://imgur.com/FXNstOc.jpg)  
+You can also recolor the dog bowl.  
+![Imgur](https://imgur.com/CRzMcjC.jpg)
 
 ### <ins>Tennis Ball</ins>
-![Imgur](https://imgur.com/IZG15Qq.jpg)
+![Imgur](https://imgur.com/pdNySNQ.jpg)
 
 ## **Requirements**
 - [Fabric](https://fabricmc.net/use/ "Fabric")
