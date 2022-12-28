@@ -22,15 +22,6 @@ You can throw it by right-clicking it. (Though be careful when you're near glass
 ![Imgur](https://imgur.com/nOkmCKj.jpg)
 
 ## **Behavior and personality**
-Here is a list of behavior changes:  
-Added an ability for a dog to dig  
-Added an ability for a dog to hold an item in its mouth  
-Added an ability for a dog to play fetch  
-Added an ability for a dog to scratch its ear  
-Added an ability for a dog to stretch  
-Added an ability for a dog to take a nap  
-Changed the way to heal a dog
-
 ### <ins>Digging</ins>
 From time to time a dog may start digging. Give it some time and it may find some treasure. (But I wouldn't be the one expecting diamonds or netherite)  
 ![Imgur](https://imgur.com/AmWuH4n.jpg)  
