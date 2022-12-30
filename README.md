@@ -22,10 +22,6 @@ You can throw it by right-clicking it. (Though be careful when you're near glass
 ![Imgur](https://imgur.com/nOkmCKj.jpg)
 
 ## **Behavior and personality**
-### <ins>Digging</ins>
-From time to time a dog may start digging. Give it some time and it may find some treasure. (But I wouldn't be the one expecting diamonds or netherite)  
-![Imgur](https://imgur.com/AmWuH4n.jpg)  
-
 ### <ins>Healing</ins>
 There are two ways to heal a dog:  
 1. Place down a dog bowl and put food (preferably meat) in it by right-clicking on the dog bowl. If a dog is near a dog bowl and it's not on max health, it will try eating from it.  
@@ -52,6 +48,12 @@ To actually play fetch, you have to:
 ### <ins>Scratching its ear</ins>
 From time to time a dog may scratch its ear.  
 ![Imgur](https://imgur.com/5oSn0dm.jpg)  
+
+### <ins>Sniffing</ins>
+From time to time a dog may start sniffing the ground.  
+![Imgur](https://imgur.com/jvJNd0e.jpg)  
+If it thinks it has found something, it will start digging for it. Who knows what treasure lies beneath. Though asking for diamonds or netherite might be too much.  
+![Imgur](https://imgur.com/32Tck60.jpg)  
 
 ### <ins>Stretching</ins>
 From time to time a dog may stretch.  
