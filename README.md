@@ -82,3 +82,5 @@ Special thanks to kaprai for creating the doggo logo. [kaprai's Twitter](https:/
 
 ## **Other**
 This mod has been inspired by other mods (e.g. [Improved Wolves](https://mrcrayfish.com/mods?id=improvedwolves "Improved Wolves") by MrCrayfish)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K1FR5YI)
