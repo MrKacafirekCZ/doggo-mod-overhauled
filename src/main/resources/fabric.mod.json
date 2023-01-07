@@ -1,38 +1,64 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "doggomodoverhauled",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Doggo Mod Overhauled",
+  "description": "Doggo Mod Overhauled is a Minecraft mod that just makes dogs better.",
   "authors": [
-    "Me!"
+    {
+      "name": "MrKacafirekCZ - The Developer",
+      "contact": {
+        "homepage": "https://twitter.com/MrKacafirekCZ"
+      }
+    }
+  ],
+  "contributors": [
+    {
+      "name": "plantskid - The Icon Artist",
+      "contact": {
+        "homepage": "https://twitter.com/plantskid"
+      }
+    },
+    {
+      "name": "kaprai - The Logo Artist",
+      "contact": {
+        "homepage": "https://twitter.com/kapraicraft"
+      }
+    }
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "issues": "https://github.com/MrKacafirekCZ/doggo-mod-overhauled/issues",
+    "homepage": "https://curseforge.com/minecraft/mc-mods/doggo-mod-overhauled",
+    "sources": "https://github.com/MrKacafirekCZ/doggo-mod-overhauled"
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "MIT",
+  "icon": "assets/doggomodoverhauled/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "net.lordmrk.dmo.DoggoModOverhauled"
+    ],
+    "client": [
+      "net.lordmrk.dmo.DoggoModOverhauledClient"
+    ],
+    "rei_client": [
+      "net.lordmrk.dmo.modules.rei.ReiPlugin"
+    ],
+    "jei_mod_plugin": [
+      "net.lordmrk.dmo.modules.jei.JEIPlugin"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "doggomodoverhauled.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.14.9",
-    "fabric-api": "*",
+    "fabric-api": ">=0.60.0",
     "minecraft": "~1.19",
     "java": ">=17"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

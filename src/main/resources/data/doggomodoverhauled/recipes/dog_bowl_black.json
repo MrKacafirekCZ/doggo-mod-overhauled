@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "   ",
+        "ICI",
+        " I "
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:iron_ingot"
+        },
+        "C": {
+            "item": "minecraft:black_dye"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:dog_bowl_black",
+        "count": 1
+    }
+}

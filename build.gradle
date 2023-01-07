@@ -16,6 +16,21 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+
+	// Roughly Enough Items
+	maven { url "https://maven.shedaniel.me" }
+
+	// Just Enough Items
+	maven {
+		// location of the maven that hosts JEI files
+		name = "Progwml6 maven"
+		url = "https://dvs1.progwml6.com/files/maven/"
+	}
+	maven {
+		// location of a maven mirror for JEI files, as a fallback
+		name = "ModMaven"
+		url = "https://modmaven.dev"
+	}
 }
 
 dependencies {
@@ -31,6 +46,18 @@ dependencies {
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+
+	// Roughly Enough Items
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:10.0.581"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:10.0.581"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:10.0.581"
+
+	// Just Enough Items
+	// compile against the JEI API but do not include it at runtime
+	//modCompileOnlyApi("mezz.jei:jei-${project.mc_version}-common-api:${project.jei_version}")
+	//modCompileOnlyApi("mezz.jei:jei-${project.mc_version}-fabric-api:${project.jei_version}")
+	// at runtime, use the full JEI jar for Fabric
+	//modRuntimeOnly("mezz.jei:jei-${project.mc_version}-fabric:${project.jei_version}")
 }
 
 processResources {

@@ -1,0 +1,27 @@
+{
+    "itemGroup.doggomodoverhauled.doggomodoverhauled": "Doggo Mod Overhauled",
+    
+    "block.doggomodoverhauled.dog_bowl_entity": "Dog Bowl",
+    "block.doggomodoverhauled.named_dog_bowl_entity": "%s's Dog Bowl",
+    
+    "block.doggomodoverhauled.dog_bowl_white": "Dog Bowl (White)",
+    "block.doggomodoverhauled.dog_bowl_orange": "Dog Bowl (Orange)",
+    "block.doggomodoverhauled.dog_bowl_magenta": "Dog Bowl (Magenta)",
+    "block.doggomodoverhauled.dog_bowl_light_blue": "Dog Bowl (Light Blue)",
+    "block.doggomodoverhauled.dog_bowl_yellow": "Dog Bowl (Yellow)",
+    "block.doggomodoverhauled.dog_bowl_lime": "Dog Bowl (Lime)",
+    "block.doggomodoverhauled.dog_bowl_pink": "Dog Bowl (Pink)",
+    "block.doggomodoverhauled.dog_bowl_gray": "Dog Bowl (Gray)",
+    "block.doggomodoverhauled.dog_bowl_light_gray": "Dog Bowl (Light Gray)",
+    "block.doggomodoverhauled.dog_bowl_cyan": "Dog Bowl (Cyan)",
+    "block.doggomodoverhauled.dog_bowl_purple": "Dog Bowl (Purple)",
+    "block.doggomodoverhauled.dog_bowl_blue": "Dog Bowl (Blue)",
+    "block.doggomodoverhauled.dog_bowl_brown": "Dog Bowl (Brown)",
+    "block.doggomodoverhauled.dog_bowl_green": "Dog Bowl (Green)",
+    "block.doggomodoverhauled.dog_bowl_red": "Dog Bowl (Red)",
+    "block.doggomodoverhauled.dog_bowl_black": "Dog Bowl (Black)",
+    
+    "entity.doggomodoverhauled.doggo": "Doggo",
+
+    "item.doggomodoverhauled.tennis_ball": "Tennis Ball"
+}
