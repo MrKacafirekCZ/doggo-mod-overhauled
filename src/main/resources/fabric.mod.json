@@ -33,7 +33,7 @@
     "sources": "https://github.com/MrKacafirekCZ/doggo-mod-overhauled"
   },
 
-  "license": "MIT",
+  "license": "GPL-3.0",
   "icon": "assets/doggomodoverhauled/icon.png",
 
   "environment": "*",
