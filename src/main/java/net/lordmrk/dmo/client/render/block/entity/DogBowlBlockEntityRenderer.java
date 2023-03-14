@@ -9,7 +9,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
@@ -38,7 +38,7 @@ public class DogBowlBlockEntityRenderer<T extends BlockEntity> implements BlockE
 				matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90f));
 				matrixStack.translate(-65.8, 0, -0.37);
 				this.textRenderer.draw(name, centerX, centerY, 0xFFFFFF, false,
-						matrixStack.peek().getPositionMatrix(), vertexConsumerProvider, false, 0, light);
+						matrixStack.peek().getPositionMatrix(), vertexConsumerProvider, TextRenderer.TextLayerType.NORMAL, 0, light);
 			}
 			matrixStack.pop();
 		}
@@ -53,7 +53,7 @@ public class DogBowlBlockEntityRenderer<T extends BlockEntity> implements BlockE
 
 			for(int i = 0; i < amount; i++) {
 				matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(i * 80f));
-				this.itemRenderer.renderItem(entity.getStack(0), ModelTransformation.Mode.FIXED, light, OverlayTexture.DEFAULT_UV, matrixStack, vertexConsumerProvider, 0);
+				this.itemRenderer.renderItem(entity.getStack(0), ModelTransformationMode.FIXED, light, OverlayTexture.DEFAULT_UV, matrixStack, vertexConsumerProvider, entity.getWorld(), 0);
 				matrixStack.translate(0, 0, -0.05);
 			}
 			matrixStack.pop();

@@ -8,7 +8,7 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RotationAxis;
@@ -49,7 +49,7 @@ public class DoggoHeldItemFeatureRenderer extends FeatureRenderer<DoggoEntity, D
 			matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(-30.0F));
 
 			ItemStack itemStack = doggoEntity.getStackInMouth();
-			MinecraftClient.getInstance().getItemRenderer().renderItem(itemStack, ModelTransformation.Mode.GROUND, i, OverlayTexture.DEFAULT_UV, matrixStack, vertexConsumerProvider, doggoEntity.getId());
+			MinecraftClient.getInstance().getItemRenderer().renderItem(itemStack, ModelTransformationMode.GROUND, i, OverlayTexture.DEFAULT_UV, matrixStack, vertexConsumerProvider, doggoEntity.getWorld(), doggoEntity.getId());
 			matrixStack.pop();
 		}
 	}

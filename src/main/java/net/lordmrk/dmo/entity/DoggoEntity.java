@@ -39,13 +39,12 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
@@ -58,20 +57,24 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     private static final TrackedData<DoggoAction> ACTION;
     private static final TrackedData<Boolean> ACTION_TICKING;
+    private static final TrackedData<Integer> ANGER_TIME;
     private static final TrackedData<Boolean> BEGGING;
     private static final TrackedData<BlockPos> BOWL_POS;
     private static final TrackedData<Integer> COLLAR_COLOR;
-    private static final Set<Block> diggableBlocks = Sets.newHashSet(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL);
     private static final TrackedData<DoggoFeeling> FEELING;
     private static final TrackedData<Boolean> MOUTH_OPENED;
     private static final TrackedData<ItemStack> MOUTH_STACK;
     private static final TrackedData<Integer> SCRATCHING_SIDE;
+    private static final Set<Block> diggableBlocks = Sets.newHashSet(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL);
     private float begAnimationProgress;
     private float lastBegAnimationProgress;
     private boolean furWet;
     private boolean canShakeWaterOff;
     private float shakeProgress;
     private float lastShakeProgress;
+    private static final UniformIntProvider ANGER_TIME_RANGE;
+    @Nullable
+    private UUID angryAt;
 
     public static final Predicate<ItemEntity> PICKABLE_DROP_FILTER;
     public static final Predicate<Entity> FOLLOWABLE_DROP_FILTER;
@@ -336,6 +339,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         super.initDataTracker();
         this.dataTracker.startTracking(ACTION, DoggoAction.NEUTRAL);
         this.dataTracker.startTracking(ACTION_TICKING, false);
+        this.dataTracker.startTracking(ANGER_TIME, 0);
         this.dataTracker.startTracking(BEGGING, false);
         this.dataTracker.startTracking(BOWL_POS, new BlockPos(0, 0, 0));
         this.dataTracker.startTracking(COLLAR_COLOR, DyeColor.RED.getId());
@@ -347,7 +351,6 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     @Override
     protected void initGoals() {
-
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new DoggoNapGoal(this));
         this.goalSelector.add(3, new DoggoListeningGoal(this));
@@ -652,6 +655,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     static {
         ACTION = DataTracker.registerData(DoggoEntity.class, TrackedDoggoData.DOGGO_ACTION);
         ACTION_TICKING = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        ANGER_TIME = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.INTEGER);
         BEGGING = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         BOWL_POS = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.BLOCK_POS);
         COLLAR_COLOR = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -662,31 +666,37 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
         PICKABLE_DROP_FILTER = (itemEntity) -> !itemEntity.cannotPickup() && itemEntity.isAlive();
         FOLLOWABLE_DROP_FILTER = (entity) -> entity.isAlive();
+        ANGER_TIME_RANGE = TimeHelper.betweenSeconds(20, 39);
     }
 
     @Override
     public int getAngerTime() {
-        return 0;
+        return this.dataTracker.get(ANGER_TIME);
     }
 
     @Override
     public void setAngerTime(int angerTime) {
-
+        this.dataTracker.set(ANGER_TIME, angerTime);
     }
 
     @Nullable
     @Override
     public UUID getAngryAt() {
-        return null;
+        return this.angryAt;
     }
 
     @Override
     public void setAngryAt(@Nullable UUID angryAt) {
-
+        this.angryAt = angryAt;
     }
 
     @Override
     public void chooseRandomAngerTime() {
+        this.setAngerTime(ANGER_TIME_RANGE.get(this.random));
+    }
 
+    @Override
+    public EntityView method_48926() {
+        return super.getWorld();
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,5 +45,10 @@ public class WolfEntityMixin extends TameableEntity {
 
         ci.cancel();
         ci.setReturnValue(ActionResult.SUCCESS);
+    }
+
+    @Override
+    public EntityView method_48926() {
+        return null;
     }
 }

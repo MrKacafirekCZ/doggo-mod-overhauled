@@ -13,6 +13,7 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public class TennisBallEntity extends ThrownItemEntity {
@@ -31,14 +32,15 @@ public class TennisBallEntity extends ThrownItemEntity {
 
     protected void onEntityHit(EntityHitResult entityHitResult) {
         super.onEntityHit(entityHitResult);
-        entityHitResult.getEntity().damage(DamageSource.thrownProjectile(this, this.getOwner()), 0.0F);
+        entityHitResult.getEntity().damage(this.getDamageSources().thrown(this, this.getOwner()), 0.0F);
     }
 
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
         if(!this.world.isClient) {
 			if(hitResult.getType() == HitResult.Type.BLOCK) {
-				BlockState state = world.getBlockState(new BlockPos(hitResult.getPos()));
+                BlockPos pos = new BlockPos((int) hitResult.getPos().getX(), (int) hitResult.getPos().getY(), (int) hitResult.getPos().getZ());
+				BlockState state = world.getBlockState(pos);
 
                 // I have a feeling there is a better way to do this, but I just don't know it.
 				if(state.getBlock().equals(Blocks.GLASS_PANE) ||
@@ -58,7 +60,7 @@ public class TennisBallEntity extends ThrownItemEntity {
                         state.getBlock().equals(Blocks.PURPLE_STAINED_GLASS_PANE) ||
                         state.getBlock().equals(Blocks.MAGENTA_STAINED_GLASS_PANE) ||
                         state.getBlock().equals(Blocks.PINK_STAINED_GLASS_PANE)) {
-					world.breakBlock(new BlockPos(hitResult.getPos()), false);
+					world.breakBlock(pos, false);
 				}
 			}
 

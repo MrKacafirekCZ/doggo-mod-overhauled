@@ -62,7 +62,7 @@ public class DoggoListeningGoal extends Goal {
             return false;
         }
 
-        return this.doggoEntity.getRandom().nextFloat() < 0.01F;
+        return this.doggoEntity.getRandom().nextFloat() < 0.005F;
     }
 
     @Override

@@ -48,9 +48,9 @@ dependencies {
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
 	// Roughly Enough Items
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:10.0.581"
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:10.0.581"
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:10.0.581"
+	//modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:10.0.581"
+	//modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:10.0.581"
+	//modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:10.0.581"
 
 	// Just Enough Items
 	// compile against the JEI API but do not include it at runtime

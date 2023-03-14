@@ -43,12 +43,6 @@
     ],
     "client": [
       "net.lordmrk.dmo.DoggoModOverhauledClient"
-    ],
-    "rei_client": [
-      "net.lordmrk.dmo.modules.rei.ReiPlugin"
-    ],
-    "jei_mod_plugin": [
-      "net.lordmrk.dmo.modules.jei.JEIPlugin"
     ]
   },
   "mixins": [
@@ -56,8 +50,8 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.9",
-    "fabric-api": ">=0.60.0",
+    "fabricloader": ">=0.14.17",
+    "fabric-api": ">=0.75.3",
     "minecraft": "~1.19",
     "java": ">=17"
   }
