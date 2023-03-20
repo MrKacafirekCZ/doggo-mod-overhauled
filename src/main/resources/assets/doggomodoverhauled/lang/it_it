@@ -1,0 +1,27 @@
+{
+    "itemGroup.doggomodoverhauled.doggomodoverhauled": "Doggo Mod Overhauled",
+    
+    "block.doggomodoverhauled.dog_bowl_entity": "Ciotola per cani",
+    "block.doggomodoverhauled.named_dog_bowl_entity": "Ciotola di %s",
+    
+    "block.doggomodoverhauled.dog_bowl_white": "Ciotola per cani bianca",
+    "block.doggomodoverhauled.dog_bowl_orange": "Ciotola per cani arancione",
+    "block.doggomodoverhauled.dog_bowl_magenta": "Ciotola per cani magenta",
+    "block.doggomodoverhauled.dog_bowl_light_blue": "Ciotola per cani azzurra",
+    "block.doggomodoverhauled.dog_bowl_yellow": "Ciotola per cani gialla",
+    "block.doggomodoverhauled.dog_bowl_lime": "Ciotola per cani lime",
+    "block.doggomodoverhauled.dog_bowl_pink": "Ciotola per cani rosa",
+    "block.doggomodoverhauled.dog_bowl_gray": "Ciotola per cani grigia",
+    "block.doggomodoverhauled.dog_bowl_light_gray": "Ciotola per cani grigio chiaro",
+    "block.doggomodoverhauled.dog_bowl_cyan": "Ciotola per cani ciano",
+    "block.doggomodoverhauled.dog_bowl_purple": "Ciotola per cani viola",
+    "block.doggomodoverhauled.dog_bowl_blue": "Ciotola per cani blu",
+    "block.doggomodoverhauled.dog_bowl_brown": "Ciotola per cani marrone",
+    "block.doggomodoverhauled.dog_bowl_green": "Ciotola per cani verde",
+    "block.doggomodoverhauled.dog_bowl_red": "Ciotola per cani rossa",
+    "block.doggomodoverhauled.dog_bowl_black": "Ciotola per cani nera",
+    
+    "entity.doggomodoverhauled.doggo": "Cagnolone",
+
+    "item.doggomodoverhauled.tennis_ball": "Pallina da tennis"
+}
