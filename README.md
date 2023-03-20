@@ -82,5 +82,8 @@ You can also recolor the dog bowl.
 Special thanks to plantskid for creating the doggo icon. [plantskid's Carrd](https://plantskid.carrd.co "plantskid's Carrd")  
 Special thanks to kaprai for creating the doggo logo. [kaprai's Twitter](https://twitter.com/kapraicraft "kaprai's Twitter")
 
+## **Contributors**
+- [CapoFantasma97](https://github.com/CapoFantasma97) (Italian translation)
+
 ## **Other**
 This mod has been inspired by other mods (e.g. [Improved Wolves](https://mrcrayfish.com/mods?id=improvedwolves "Improved Wolves") by MrCrayfish)
