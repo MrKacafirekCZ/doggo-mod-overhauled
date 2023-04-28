@@ -1,7 +1,7 @@
 package net.lordmrk.dmo.modules.rei;
 
-public class ReiPlugin {}
-/*
+//public class ReiPlugin {}
+
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
@@ -62,4 +62,4 @@ public class ReiPlugin implements REIClientPlugin {
         info.lines(texts);
         registry.add(info);
     }
-}*/
+}

@@ -43,6 +43,9 @@
     ],
     "client": [
       "net.lordmrk.dmo.DoggoModOverhauledClient"
+    ],
+    "rei_client": [
+      "net.lordmrk.dmo.modules.rei.ReiPlugin"
     ]
   },
   "mixins": [
