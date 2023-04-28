@@ -19,7 +19,7 @@ public class DoggoStretchGoal extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return this.actionTick > 0 && !this.doggoEntity.isInsideWaterOrBubbleColumn() && this.doggoEntity.isOnGround();
+        return !canStop();
     }
 
     @Override
@@ -40,11 +40,19 @@ public class DoggoStretchGoal extends Goal {
             return false;
         }
 
-        if(this.doggoEntity.hasStackInMouth()) {
+        if(this.doggoEntity.isInSittingPose()) {
+            return false;
+        }
+
+        if(this.doggoEntity.hasBeenDamaged()) {
             return false;
         }
 
         if(this.doggoEntity.hasAngerTime()) {
+            return false;
+        }
+
+        if(this.doggoEntity.hasStackInMouth()) {
             return false;
         }
 
@@ -63,6 +71,10 @@ public class DoggoStretchGoal extends Goal {
             return true;
         }
 
+        if(this.doggoEntity.squaredDistanceTo(livingEntity) > 144.0D) {
+            return false;
+        }
+
         if(livingEntity.getAttacker() != null) {
             return false;
         }
@@ -72,7 +84,27 @@ public class DoggoStretchGoal extends Goal {
 
     @Override
     public boolean canStop() {
-        return this.doggoEntity.hasBeenDamaged() || this.actionTick <= 0;
+        if(this.actionTick <= 0) {
+            return true;
+        }
+
+        if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
+            return true;
+        }
+
+        if(!this.doggoEntity.isOnGround()) {
+            return true;
+        }
+
+        if(this.doggoEntity.hasBeenDamaged()) {
+            return true;
+        }
+
+        if(this.doggoEntity.hasAngerTime()) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

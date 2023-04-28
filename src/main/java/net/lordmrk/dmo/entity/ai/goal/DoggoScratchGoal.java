@@ -19,38 +19,83 @@ public class DoggoScratchGoal extends Goal {
 
 	@Override
 	public boolean shouldContinue() {
-		return this.scratchTick > 0 && !this.doggoEntity.isInsideWaterOrBubbleColumn() && this.doggoEntity.isOnGround();
+		return !canStop();
 	}
 
 	@Override
 	public boolean canStart() {
 		if(!this.doggoEntity.isTamed()) {
 			return false;
-		} else if(this.doggoEntity.isBaby()) {
-			return false;
-		} else if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
-			return false;
-		} else if(!this.doggoEntity.isOnGround()) {
-			return false;
-		} else if(this.doggoEntity.hasStackInMouth()) {
-			return false;
-		} else if(this.doggoEntity.getActionDelay() > 0) {
-			return false;
-		} else if(this.doggoEntity.hasAngerTime()) {
-			return false;
-		} else {
-			LivingEntity livingEntity = this.doggoEntity.getOwner();
-			if(livingEntity == null) {
-				return true;
-			} else {
-				return this.doggoEntity.squaredDistanceTo(livingEntity) < 144.0D && livingEntity.getAttacker() != null ? false : this.doggoEntity.getRandom().nextFloat() < 0.01F;
-			}
 		}
+
+		if(this.doggoEntity.isBaby()) {
+			return false;
+		}
+
+		if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
+			return false;
+		}
+
+		if(!this.doggoEntity.isOnGround()) {
+			return false;
+		}
+
+		if(this.doggoEntity.hasBeenDamaged()) {
+			return false;
+		}
+
+		if(this.doggoEntity.hasAngerTime()) {
+			return false;
+		}
+
+		if(this.doggoEntity.hasStackInMouth()) {
+			return false;
+		}
+
+		if(this.doggoEntity.getActionDelay() > 0) {
+			return false;
+		}
+
+		LivingEntity livingEntity = this.doggoEntity.getOwner();
+
+		if(livingEntity == null) {
+			return true;
+		}
+
+		if(this.doggoEntity.squaredDistanceTo(livingEntity) > 144.0D) {
+			return false;
+		}
+
+		if(livingEntity.getAttacker() != null) {
+			return false;
+		}
+
+		return this.doggoEntity.getRandom().nextFloat() < 0.01F;
 	}
 	
 	@Override
 	public boolean canStop() {
-		return this.doggoEntity.hasBeenDamaged() || this.scratchTick <= 0;
+		if(this.scratchTick <= 0) {
+			return true;
+		}
+
+		if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
+			return true;
+		}
+
+		if(!this.doggoEntity.isOnGround()) {
+			return true;
+		}
+
+		if(this.doggoEntity.hasBeenDamaged()) {
+			return true;
+		}
+
+		if(this.doggoEntity.hasAngerTime()) {
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override

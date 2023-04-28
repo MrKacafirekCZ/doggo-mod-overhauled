@@ -56,11 +56,15 @@ public class DoggoSniffingGoal extends Goal {
             return false;
         }
 
-        if(this.doggoEntity.hasStackInMouth()) {
+        if(this.doggoEntity.hasBeenDamaged()) {
             return false;
         }
 
         if(this.doggoEntity.hasAngerTime()) {
+            return false;
+        }
+
+        if(this.doggoEntity.hasStackInMouth()) {
             return false;
         }
 
@@ -71,6 +75,10 @@ public class DoggoSniffingGoal extends Goal {
         LivingEntity livingEntity = this.doggoEntity.getOwner();
 
         if(livingEntity == null) {
+            return false;
+        }
+
+        if(this.doggoEntity.squaredDistanceTo(livingEntity) > 144.0D) {
             return false;
         }
 
@@ -87,10 +95,6 @@ public class DoggoSniffingGoal extends Goal {
             return true;
         }
 
-        if(this.doggoEntity.hasBeenDamaged()) {
-            return true;
-        }
-
         if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
             return true;
         }
@@ -99,13 +103,11 @@ public class DoggoSniffingGoal extends Goal {
             return true;
         }
 
-        LivingEntity livingEntity = this.doggoEntity.getOwner();
-
-        if(livingEntity == null) {
+        if(this.doggoEntity.hasBeenDamaged()) {
             return true;
         }
 
-        if(livingEntity.getAttacker() != null) {
+        if(this.doggoEntity.hasAngerTime()) {
             return true;
         }
 

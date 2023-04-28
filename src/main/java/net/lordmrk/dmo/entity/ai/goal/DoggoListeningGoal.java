@@ -40,11 +40,19 @@ public class DoggoListeningGoal extends Goal {
             return false;
         }
 
-        if(this.doggoEntity.hasStackInMouth()) {
+        if(this.doggoEntity.isInSittingPose()) {
+            return false;
+        }
+
+        if(this.doggoEntity.hasBeenDamaged()) {
             return false;
         }
 
         if(this.doggoEntity.hasAngerTime()) {
+            return false;
+        }
+
+        if(this.doggoEntity.hasStackInMouth()) {
             return false;
         }
 
@@ -58,6 +66,10 @@ public class DoggoListeningGoal extends Goal {
             return false;
         }
 
+        if(this.doggoEntity.squaredDistanceTo(livingEntity) > 144.0D) {
+            return false;
+        }
+
         if(livingEntity.getAttacker() != null) {
             return false;
         }
@@ -67,7 +79,7 @@ public class DoggoListeningGoal extends Goal {
 
     @Override
     public boolean canStop() {
-        if(this.doggoEntity.hasBeenDamaged()) {
+        if(this.actionTick <= 0) {
             return true;
         }
 
@@ -79,17 +91,11 @@ public class DoggoListeningGoal extends Goal {
             return true;
         }
 
-        LivingEntity livingEntity = this.doggoEntity.getOwner();
-
-        if(livingEntity == null) {
+        if(this.doggoEntity.hasBeenDamaged()) {
             return true;
         }
 
-        if(livingEntity.getAttacker() != null) {
-            return true;
-        }
-
-        if(this.actionTick <= 0) {
+        if(this.doggoEntity.hasAngerTime()) {
             return true;
         }
 
