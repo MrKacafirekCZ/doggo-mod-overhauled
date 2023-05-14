@@ -1,8 +1,9 @@
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K1FR5YI)
 
 # **Doggo Mod Overhauled**
-Doggo Mod Overhauled is a mod that just makes dogs better by adding personality, dog bowls for dogs to eat from and a little tennis ball to play fetch.  
+Doggo Mod Overhauled is an enhanced version of the popular mod, Doggo Mod. It brings a new level of excitement and realism to the game by introducing personality traits that make each dog unique. Additionally, the mod features dog bowls that enable dogs to eat from and a fun tennis ball that they can use to play fetch. 
 It is a complete rewrite of the mod [Doggo Mod](https://www.curseforge.com/minecraft/mc-mods/doggo-mod "Doggo Mod") and fixes various bugs such as Multiplayer compatibility.  
+With these new features, players can expect to enjoy a more immersive and engaging gameplay experience with their furry companions. So, whether you're a seasoned player or a new one, Doggo Mod Overhauled is a must-try for all dog lovers out there!
 ![Imgur](https://imgur.com/qZty4EZ.jpg)  
 
 ## **Blocks and items**
@@ -77,6 +78,13 @@ You can also recolor the dog bowl.
 ## **Optional mods / Tested mods**
 - [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
 - [Roughly Enough Items](https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items)
+
+## **Summary**
+Doggo Mod Overhauled is a fantastic mod that improves the personality and behavior of dogs in Minecraft. The mod adds a lot of exciting features, such as dog bowls for feeding and a tennis ball for playing fetch. If a dog is low on health, it will automatically eat from a dog bowl if there is food in it. The dog bowl can be renamed in an anvil, and only dogs with matching names will eat from it.
+One of the significant features of the mod is the ability to heal your dog. You can either place down a dog bowl with food or give food directly to your dog to hold in its mouth and eat whenever it wants. Additionally, dogs can hold items in their mouths, but they prefer food over weapons.
+The mod also introduces various new behaviors for dogs. They can take a nap when left alone, scratch their ears, and sniff the ground. If a dog finds something of interest while sniffing, it will start digging for it, making it an exciting way to discover hidden treasures.
+The tennis ball feature is another exciting addition to the mod. Dogs can play fetch with the ball, but you must first show it to them to make them interested. Once interested, you can throw it, and the dog will happily retrieve it for you.
+Overall, Doggo Mod Overhauled is an excellent mod that adds more personality and fun to Minecraft's furry friends. It's a must-try for all dog lovers out there.
 
 ## **Special thanks**
 Special thanks to plantskid for creating the doggo icon. [plantskid's Carrd](https://plantskid.carrd.co "plantskid's Carrd")  
