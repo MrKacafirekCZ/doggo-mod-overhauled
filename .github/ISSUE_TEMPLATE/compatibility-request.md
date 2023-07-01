@@ -2,7 +2,7 @@
 name: Compatibility request
 about: Another mod is breaking this mod? Create a compatibility request.
 title: "[COMPATIBILITY] Title name"
-labels: enhancement
+labels: compatibility
 assignees: ''
 
 ---
