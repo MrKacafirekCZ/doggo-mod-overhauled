@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: Missing a feature in this mod? Create a feature request.
 title: "[FEATURE] Title name"
 labels: enhancement
 assignees: ''
