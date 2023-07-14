@@ -114,7 +114,7 @@ public class DoggoReadyPlayTimeGoal extends Goal {
             return true;
         }
 
-        List<ThrownItemEntity> list = this.doggoEntity.world.getEntitiesByClass(
+        List<ThrownItemEntity> list = this.doggoEntity.getWorld().getEntitiesByClass(
                 ThrownItemEntity.class,
                 this.doggoEntity.getBoundingBox().expand(8.0D, 8.0D, 8.0D),
                 DoggoEntity.FOLLOWABLE_DROP_FILTER);

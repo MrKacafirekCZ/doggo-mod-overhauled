@@ -12,6 +12,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class DoggoBegGoal extends Goal {
+
 	private final DoggoEntity doggoEntity;
 	private PlayerEntity begFrom;
 	private final World world;
@@ -21,7 +22,7 @@ public class DoggoBegGoal extends Goal {
 
 	public DoggoBegGoal(DoggoEntity doggoEntity, float begDistance) {
 	      this.doggoEntity = doggoEntity;
-	      this.world = doggoEntity.world;
+	      this.world = doggoEntity.getWorld();
 	      this.begDistance = begDistance;
 	      this.validPlayerPredicate = TargetPredicate.createNonAttackable().setBaseMaxDistance(begDistance);
 	      this.setControls(EnumSet.of(Goal.Control.LOOK));

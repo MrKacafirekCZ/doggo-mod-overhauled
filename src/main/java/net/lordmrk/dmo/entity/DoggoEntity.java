@@ -104,7 +104,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     }
 
     public boolean canStartDigging() {
-        return diggableBlocks.contains(this.world.getBlockState(this.getBlockPos().down()).getBlock());
+        return diggableBlocks.contains(this.getWorld().getBlockState(this.getBlockPos().down()).getBlock());
     }
 
     public static DefaultAttributeContainer.Builder createDoggoAttributes() {
@@ -133,7 +133,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     public void dropStackInMouth() {
         if(hasStackInMouth()) {
-            ItemScatterer.spawn(world, getX(), getY(), getZ(), getStackInMouth());
+            ItemScatterer.spawn(this.getWorld(), this.getX(), this.getY(), this.getZ(), getStackInMouth());
             setStackInMouth(null);
         }
     }
@@ -161,7 +161,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
                 return SoundEvents.ENTITY_WOLF_WHINE;
             }
 
-            if(!this.hasStackInMouth() && !this.world.isClient) {
+            if(!this.hasStackInMouth() && !this.getWorld().isClient) {
                 this.setMouthOpened(true);
                 return SoundEvents.ENTITY_WOLF_PANT;
             }
@@ -281,7 +281,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         ItemStack itemStack = player.getStackInHand(hand);
         Item item = itemStack.getItem();
 
-        if (this.world.isClient) {
+        if (this.getWorld().isClient) {
             boolean bl = this.isOwner(player) || this.isTamed() || itemStack.isOf(Items.BONE) && !this.isTamed() && !this.hasAngerTime();
             return bl ? ActionResult.CONSUME : ActionResult.PASS;
         }
@@ -444,7 +444,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
             this.setCollarColor(DyeColor.byId(nbt.getInt("CollarColor")));
         }
 
-        this.readAngerFromNbt(this.world, nbt);
+        this.readAngerFromNbt(this.getWorld(), nbt);
     }
 
     private void resetShake() {
@@ -528,8 +528,8 @@ public class DoggoEntity extends TameableEntity implements Angerable {
             if(this.getAction() == DoggoAction.NEUTRAL) {
                 if (this.isWet()) {
                     this.furWet = true;
-                    if (this.canShakeWaterOff && !this.world.isClient) {
-                        this.world.sendEntityStatus(this, (byte)56);
+                    if (this.canShakeWaterOff && !this.getWorld().isClient) {
+                        this.getWorld().sendEntityStatus(this, (byte)56);
                         this.resetShake();
                     }
                 } else if (this.furWet || this.canShakeWaterOff) {
@@ -555,14 +555,14 @@ public class DoggoEntity extends TameableEntity implements Angerable {
                         for(int j = 0; j < i; ++j) {
                             float g = (this.random.nextFloat() * 2.0F - 1.0F) * this.getWidth() * 0.5F;
                             float h = (this.random.nextFloat() * 2.0F - 1.0F) * this.getWidth() * 0.5F;
-                            this.world.addParticle(ParticleTypes.SPLASH, this.getX() + (double)g, (double)(f + 0.8F), this.getZ() + (double)h, vec3d.x, vec3d.y, vec3d.z);
+                            this.getWorld().addParticle(ParticleTypes.SPLASH, this.getX() + (double)g, (double)(f + 0.8F), this.getZ() + (double)h, vec3d.x, vec3d.y, vec3d.z);
                         }
                     }
                 }
             }
         }
 
-        if(this.world.isClient) {
+        if(this.getWorld().isClient) {
             if(isActionTicking()) {
                 this.animationTick = (this.animationTick + 0.5f) % 360;
             } else if(this.animationTick > 0) {
@@ -574,17 +574,17 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
             switch(getAction()) {
                 case DIGGING:
-                    this.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, this.world.getBlockState(this.getBlockPos().down())), this.getX() + x, this.getY(), this.getZ() + z, 0.1, 0.1, 0.1);
+                    this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, this.getWorld().getBlockState(this.getBlockPos().down())), this.getX() + x, this.getY(), this.getZ() + z, 0.1, 0.1, 0.1);
                     break;
                 case EATING:
-                    this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, getStackInMouth()), this.getX() + x * (1.6 + ((double) this.random.nextInt(5) / 10)), this.getY() + 0.55, this.getZ() + z * (1.6 + ((double) this.random.nextInt(5) / 10)), 0, 0, 0);
+                    this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, getStackInMouth()), this.getX() + x * (1.6 + ((double) this.random.nextInt(5) / 10)), this.getY() + 0.55, this.getZ() + z * (1.6 + ((double) this.random.nextInt(5) / 10)), 0, 0, 0);
                     break;
                 case EATING_FROM_BOWL:
-                    if(getBowlPos() != null && this.world.getBlockEntity(getBowlPos()) != null) {
-                        ItemStack item = ((DogBowlEntity) this.world.getBlockEntity(getBowlPos())).getStack(0);
+                    if(getBowlPos() != null && this.getWorld().getBlockEntity(getBowlPos()) != null) {
+                        ItemStack item = ((DogBowlEntity) this.getWorld().getBlockEntity(getBowlPos())).getStack(0);
 
                         if(item != null && !item.isEmpty()) {
-                            this.world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, item), getBowlPos().getX() + 0.4 + ((double) this.random.nextInt(3) / 10), getBowlPos().getY() + 0.2, getBowlPos().getZ() + 0.4 + ((double) this.random.nextInt(3) / 10), 0, 0, 0);
+                            this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, item), getBowlPos().getX() + 0.4 + ((double) this.random.nextInt(3) / 10), getBowlPos().getY() + 0.2, getBowlPos().getZ() + 0.4 + ((double) this.random.nextInt(3) / 10), 0, 0, 0);
                         }
                     }
                     break;
@@ -608,7 +608,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
             switch(getAction()) {
                 case DIGGING:
                     if(this.age % 4 == 0) {
-                        Block block = this.world.getBlockState(this.getBlockPos().down()).getBlock();
+                        Block block = this.getWorld().getBlockState(this.getBlockPos().down()).getBlock();
                         SoundEvent sound = null;
 
                         if(block == Blocks.GRASS_BLOCK || block == Blocks.DIRT) {
@@ -620,7 +620,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
                         }
 
                         if(sound != null) {
-                            this.world.playSound(null,
+                            this.getWorld().playSound(null,
                                     this.getX(), this.getY(), this.getZ(),
                                     sound, SoundCategory.NEUTRAL, 0.2f, 0f);
                         }
@@ -633,15 +633,15 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     public void tickMovement() {
         super.tickMovement();
 
-        if (!this.world.isClient && this.furWet && !this.canShakeWaterOff && !this.isNavigating() && this.onGround) {
+        if (!this.getWorld().isClient && this.furWet && !this.canShakeWaterOff && !this.isNavigating() && this.isOnGround()) {
             this.canShakeWaterOff = true;
             this.shakeProgress = 0.0F;
             this.lastShakeProgress = 0.0F;
-            this.world.sendEntityStatus(this, (byte)8);
+            this.getWorld().sendEntityStatus(this, (byte)8);
         }
 
-        if (!this.world.isClient) {
-            this.tickAngerLogic((ServerWorld)this.world, true);
+        if (!this.getWorld().isClient) {
+            this.tickAngerLogic((ServerWorld)this.getWorld(), true);
         }
 
     }

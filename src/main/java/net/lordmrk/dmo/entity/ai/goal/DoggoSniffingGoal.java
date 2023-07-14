@@ -159,7 +159,7 @@ public class DoggoSniffingGoal extends Goal {
                             item = Items.GOLD_NUGGET.getDefaultStack();
                         }
 
-                        ItemScatterer.spawn(this.doggoEntity.world, this.doggoEntity.getX() + x, this.doggoEntity.getY(), this.doggoEntity.getZ() + z, item);
+                        ItemScatterer.spawn(this.doggoEntity.getWorld(), this.doggoEntity.getX() + x, this.doggoEntity.getY(), this.doggoEntity.getZ() + z, item);
                     }
 
                     this.canStop = true;

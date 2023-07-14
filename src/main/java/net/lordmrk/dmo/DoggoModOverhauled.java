@@ -23,7 +23,10 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,8 +67,9 @@ public class DoggoModOverhauled implements ModInitializer {
 	public static BlockEntityType<DogBowlEntity> DOG_BOWL_ENTITY;
 	public static final ScreenHandlerType<DogBowlScreenHandler> DOG_BOWL_SCREEN_HANDLER;
 
-	public static final ItemGroup DOG_STUFF_GROUP = FabricItemGroup.builder(
-			new Identifier(MODID, "doggomodoverhauled"))
+	public static final RegistryKey<ItemGroup> DOG_STUFF_REGISTRY_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, new Identifier(MODID, "doggomodoverhauled"));
+	public static final ItemGroup DOG_STUFF_GROUP = FabricItemGroup.builder()
+			.displayName(Text.translatable("itemGroup." + MODID + ".doggomodoverhauled"))
 			.icon(() -> new ItemStack(DOG_BOWL_CYAN))
 			.build();
 
@@ -88,13 +92,15 @@ public class DoggoModOverhauled implements ModInitializer {
 		registerBlockAndItem("dog_bowl_magenta", DOG_BOWL_MAGENTA);
 		registerBlockAndItem("dog_bowl_pink", DOG_BOWL_PINK);
 
+		registerItemGroup("doggomodoverhauled", DOG_STUFF_GROUP);
+
 		registerItem("tennis_ball", TENNIS_BALL);
 
 		addBowlsToItemGroup(ItemGroups.COLORED_BLOCKS, Items.PINK_BANNER);
 		addBowlsToItemGroup(ItemGroups.FUNCTIONAL, Items.PINK_BANNER);
 		addTennisBallToItemGroup(ItemGroups.TOOLS, Items.ENDER_EYE);
-		addBowlsToItemGroup(DOG_STUFF_GROUP, null);
-		addTennisBallToItemGroup(DOG_STUFF_GROUP, null);
+		addBowlsToItemGroup(DOG_STUFF_REGISTRY_KEY, null);
+		addTennisBallToItemGroup(DOG_STUFF_REGISTRY_KEY, null);
 
 		DOG_BOWL_ENTITY = Registry.register(
 				Registries.BLOCK_ENTITY_TYPE,
@@ -119,8 +125,8 @@ public class DoggoModOverhauled implements ModInitializer {
 		TrackedDataHandlerRegistry.register(TrackedDoggoData.DOGGO_FEELING);
 	}
 
-	private void addBowlsToItemGroup(ItemGroup group, Item addAfter) {
-		ItemGroupEvents.modifyEntriesEvent(group).register(content -> {
+	private void addBowlsToItemGroup(RegistryKey<ItemGroup> registryKey, Item addAfter) {
+		ItemGroupEvents.modifyEntriesEvent(registryKey).register(content -> {
 			if(addAfter == null) {
 				content.add(DOG_BOWL_WHITE);
 			} else {
@@ -145,8 +151,8 @@ public class DoggoModOverhauled implements ModInitializer {
 		});
 	}
 
-	private void addTennisBallToItemGroup(ItemGroup group, Item addAfter) {
-		ItemGroupEvents.modifyEntriesEvent(group).register(content -> {
+	private void addTennisBallToItemGroup(RegistryKey<ItemGroup> registryKey, Item addAfter) {
+		ItemGroupEvents.modifyEntriesEvent(registryKey).register(content -> {
 			if(addAfter == null) {
 				content.add(TENNIS_BALL);
 			} else {
@@ -158,6 +164,10 @@ public class DoggoModOverhauled implements ModInitializer {
 	private void registerBlockAndItem(String id, Block block) {
 		Registry.register(Registries.BLOCK, new Identifier(MODID, id), block);
 		registerItem(id, new BlockItem(block, new FabricItemSettings()));
+	}
+
+	private void registerItemGroup(String id, ItemGroup itemGroup) {
+		Registry.register(Registries.ITEM_GROUP, new Identifier(MODID, id), itemGroup);
 	}
 
 	private void registerItem(String id, Item item) {

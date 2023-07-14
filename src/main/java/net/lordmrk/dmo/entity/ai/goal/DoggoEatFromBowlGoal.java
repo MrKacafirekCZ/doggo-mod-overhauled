@@ -103,7 +103,7 @@ public class DoggoEatFromBowlGoal extends Goal {
 						this.doggoEntity.getBowlPos().getZ() + 0.5, 10, 10);
 				
 				if(eating == 0) {
-					DogBowlEntity dogBowlEntity = (DogBowlEntity) this.doggoEntity.world.getBlockEntity(this.doggoEntity.getBowlPos());
+					DogBowlEntity dogBowlEntity = (DogBowlEntity) this.doggoEntity.getWorld().getBlockEntity(this.doggoEntity.getBowlPos());
 
 					if(dogBowlEntity != null && dogBowlEntity.hasFood()) {
 						eating = dogBowlEntity.getFoodHunger();
@@ -121,7 +121,7 @@ public class DoggoEatFromBowlGoal extends Goal {
 						}
 					}
 
-					this.doggoEntity.world.playSound(null,
+					this.doggoEntity.getWorld().playSound(null,
 							this.doggoEntity.getX(), this.doggoEntity.getY(), this.doggoEntity.getZ(),
 							SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 0.4f, 1f);
 				}
@@ -154,7 +154,7 @@ public class DoggoEatFromBowlGoal extends Goal {
 	
 	private void failAndWhine() {
 		fail();
-		this.doggoEntity.world.playSound(
+		this.doggoEntity.getWorld().playSound(
 				null,
 				this.doggoEntity.getX(), this.doggoEntity.getY(), this.doggoEntity.getZ(),
 				SoundEvents.ENTITY_WOLF_WHINE, SoundCategory.NEUTRAL, 0.4f, 1.05f);

@@ -8,7 +8,6 @@ import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.Material;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -16,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -30,7 +30,7 @@ public class DogBowl extends BlockWithEntity implements BlockEntityProvider {
 	protected static final VoxelShape SHAPE = Block.createCuboidShape(2.5, 0.0, 2.5, 13.5, 4.0, 13.5);
 	
 	public DogBowl() {
-		super(FabricBlockSettings.of(Material.STONE).strength(2.0f).requiresTool());
+		super(FabricBlockSettings.create().sounds(BlockSoundGroup.STONE).strength(2.0f).requiresTool());
 	}
 
 	@Override
@@ -97,8 +97,10 @@ public class DogBowl extends BlockWithEntity implements BlockEntityProvider {
 	}
 	
 	public static boolean canEatFromBowl(BlockPos pos, DoggoEntity doggoEntity) {
-		if(isEqual(doggoEntity.world.getBlockState(pos).getBlock())) {
-			DogBowlEntity dogBowlEntity = (DogBowlEntity) doggoEntity.world.getBlockEntity(pos);
+		World world = doggoEntity.getWorld();
+
+		if(isEqual(world.getBlockState(pos).getBlock())) {
+			DogBowlEntity dogBowlEntity = (DogBowlEntity) world.getBlockEntity(pos);
 			
 			if(dogBowlEntity.hasCustomName()) {
 				if(doggoEntity.hasCustomName() && doggoEntity.getDisplayName().getString().equals(dogBowlEntity.getCustomName().getString())) {

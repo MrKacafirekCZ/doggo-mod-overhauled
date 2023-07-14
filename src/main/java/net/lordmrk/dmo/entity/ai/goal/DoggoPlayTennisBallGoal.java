@@ -69,7 +69,7 @@ public class DoggoPlayTennisBallGoal extends Goal {
             return false;
         }
 
-        List<ThrownItemEntity> list = this.doggoEntity.world.getEntitiesByClass(
+        List<ThrownItemEntity> list = this.doggoEntity.getWorld().getEntitiesByClass(
                 ThrownItemEntity.class,
                 this.doggoEntity.getBoundingBox().expand(8.0D, 8.0D, 8.0D),
                 DoggoEntity.FOLLOWABLE_DROP_FILTER);
@@ -125,7 +125,7 @@ public class DoggoPlayTennisBallGoal extends Goal {
 
         if(this.thrownItemEntity != null) {
             if(this.thrownItemEntity.isRemoved()) {
-                List<ItemEntity> list = this.doggoEntity.world.getEntitiesByClass(
+                List<ItemEntity> list = this.doggoEntity.getWorld().getEntitiesByClass(
                         ItemEntity.class,
                         this.doggoEntity.getBoundingBox().expand(20.0D, 8.0D, 20.0D),
                         DoggoEntity.PICKABLE_DROP_FILTER);
@@ -199,7 +199,7 @@ public class DoggoPlayTennisBallGoal extends Goal {
 
     private void fail() {
         this.failed = true;
-        this.doggoEntity.world.playSound(
+        this.doggoEntity.getWorld().playSound(
                 null,
                 this.doggoEntity.getX(), this.doggoEntity.getY(), this.doggoEntity.getZ(),
                 SoundEvents.ENTITY_WOLF_WHINE, SoundCategory.NEUTRAL, 0.4f, 1.05f);

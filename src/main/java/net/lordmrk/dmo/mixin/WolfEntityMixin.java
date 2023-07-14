@@ -17,7 +17,6 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WolfEntity.class)
@@ -38,9 +37,9 @@ public class WolfEntityMixin extends TameableEntity {
                 , target = "Lnet/minecraft/entity/passive/WolfEntity;setOwner(Lnet/minecraft/entity/player/PlayerEntity;)V")
             , cancellable = true)
     private void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> ci) {
-        DoggoEntity doggoEntity = DoggoModOverhauled.DOGGO.spawn((ServerWorld)this.world, null/*, this.getCustomName()*/, null, this.getBlockPos(), SpawnReason.CONVERSION, true, false);
+        DoggoEntity doggoEntity = DoggoModOverhauled.DOGGO.spawn((ServerWorld)this.getWorld(), null/*, this.getCustomName()*/, null, this.getBlockPos(), SpawnReason.CONVERSION, true, false);
         doggoEntity.setOwner(player);
-        this.world.sendEntityStatus(doggoEntity, (byte)7);
+        this.getWorld().sendEntityStatus(doggoEntity, (byte)7);
         this.remove(RemovalReason.DISCARDED);
 
         ci.cancel();

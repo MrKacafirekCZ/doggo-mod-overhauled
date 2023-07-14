@@ -9,7 +9,7 @@
     {
       "name": "MrKacafirekCZ - The Developer",
       "contact": {
-        "homepage": "https://twitter.com/MrKacafirekCZ"
+        "homepage": "https://ko-fi.com/lordmrk"
       }
     }
   ],
@@ -29,7 +29,7 @@
   ],
   "contact": {
     "issues": "https://github.com/MrKacafirekCZ/doggo-mod-overhauled/issues",
-    "homepage": "https://curseforge.com/minecraft/mc-mods/doggo-mod-overhauled",
+    "homepage": "https://modrinth.com/mod/doggo-mod-overhauled",
     "sources": "https://github.com/MrKacafirekCZ/doggo-mod-overhauled"
   },
 
@@ -53,9 +53,9 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.17",
-    "fabric-api": ">=0.75.3",
-    "minecraft": "~1.19",
+    "fabricloader": ">=0.14.21",
+    "fabric-api": ">=0.85.0",
+    "minecraft": ">=1.20",
     "java": ">=17"
   }
 }

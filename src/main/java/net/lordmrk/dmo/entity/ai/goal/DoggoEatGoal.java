@@ -79,7 +79,7 @@ public class DoggoEatGoal extends Goal {
 				}
 			}
 
-			doggoEntity.world.playSound(null,
+			doggoEntity.getWorld().playSound(null,
 					doggoEntity.getX(), doggoEntity.getY(), doggoEntity.getZ(),
 					SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 0.4f, 1f);
 		}
