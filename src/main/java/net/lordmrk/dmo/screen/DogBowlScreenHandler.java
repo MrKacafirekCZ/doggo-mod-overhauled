@@ -25,35 +25,35 @@ public class DogBowlScreenHandler extends ScreenHandler {
 
         inv.onOpen(playerInv.player);
 
-        int m;
-        int l;
         //Our inventory
         this.addSlot(new DogFoodSlot(inv, 0, 80, 17));
+
         //The player inventory
-        for (m = 0; m < 3; ++m) {
-            for (l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInv, l + m * 9 + 9, 8 + l * 18, 48 + m * 18));
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 9; x++) {
+                this.addSlot(new Slot(playerInv, x + y * 9 + 9, 8 + x * 18, 48 + y * 18));
             }
         }
+
         //The player Hotbar
-        for (m = 0; m < 9; ++m) {
-            this.addSlot(new Slot(playerInv, m, 8 + m * 18, 106));
+        for (int x = 0; x < 9; x++) {
+            this.addSlot(new Slot(playerInv, x, 8 + x * 18, 106));
         }
     }
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return this.inv.canPlayerUse(player);
+        return inv.canPlayerUse(player);
     }
 
-    // Shift + Player Inv Slot
     @Override
     public ItemStack quickMove(PlayerEntity player, int invSlot) {
-        ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasStack()) {
+
+        if (slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
-            newStack = originalStack.copy();
+            ItemStack newStack = originalStack.copy();
+
             if (invSlot < this.inv.size()) {
                 if (!this.insertItem(originalStack, this.inv.size(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
@@ -67,15 +67,17 @@ public class DogBowlScreenHandler extends ScreenHandler {
             } else {
                 slot.markDirty();
             }
+
+            return newStack;
         }
 
-        return newStack;
+        return ItemStack.EMPTY;
     }
 
     static class DogFoodSlot extends Slot {
 
-        public DogFoodSlot(Inventory inventory, int i, int j, int k) {
-            super(inventory, i, j, k);
+        public DogFoodSlot(Inventory inventory, int index, int x, int y) {
+            super(inventory, index, x, y);
         }
 
         public boolean canInsert(ItemStack stack) {
