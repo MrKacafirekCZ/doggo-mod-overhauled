@@ -65,7 +65,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     private static final TrackedData<Boolean> MOUTH_OPENED;
     private static final TrackedData<ItemStack> MOUTH_STACK;
     private static final TrackedData<Integer> SCRATCHING_SIDE;
-    private static final Set<Block> diggableBlocks = Sets.newHashSet(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL);
+    private static final Set<Block> diggableBlocks = Sets.newHashSet(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL, Blocks.SNOW_BLOCK);
     private float begAnimationProgress;
     private float lastBegAnimationProgress;
     private boolean furWet;
