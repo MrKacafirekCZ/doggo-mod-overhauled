@@ -617,6 +617,8 @@ public class DoggoEntity extends TameableEntity implements Angerable {
                             sound = SoundEvents.BLOCK_SAND_HIT;
                         } else if(block == Blocks.GRAVEL) {
                             sound = SoundEvents.BLOCK_GRAVEL_HIT;
+                        } else if(block == Blocks.SNOW_BLOCK) {
+                            sound = SoundEvents.BLOCK_SNOW_HIT;
                         }
 
                         if(sound != null) {
