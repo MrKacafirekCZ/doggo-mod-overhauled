@@ -62,6 +62,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     private static final TrackedData<BlockPos> BOWL_POS;
     private static final TrackedData<Integer> COLLAR_COLOR;
     private static final TrackedData<DoggoFeeling> FEELING;
+    private static final TrackedData<Boolean> IN_LIE_DOWN_POSE;
     private static final TrackedData<Boolean> MOUTH_OPENED;
     private static final TrackedData<ItemStack> MOUTH_STACK;
     private static final TrackedData<Integer> SCRATCHING_SIDE;
@@ -105,6 +106,11 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     public boolean canStartDigging() {
         return diggableBlocks.contains(this.getWorld().getBlockState(this.getBlockPos().down()).getBlock());
+    }
+
+    @Override
+    public void chooseRandomAngerTime() {
+        this.setAngerTime(ANGER_TIME_RANGE.get(this.random));
     }
 
     public static DefaultAttributeContainer.Builder createDoggoAttributes() {
@@ -176,6 +182,17 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     public DoggoAction getAction() {
         return this.dataTracker.get(ACTION);
+    }
+
+    @Override
+    public int getAngerTime() {
+        return this.dataTracker.get(ANGER_TIME);
+    }
+
+    @Nullable
+    @Override
+    public UUID getAngryAt() {
+        return this.angryAt;
     }
 
     public float getBegAnimationProgress(float tickDelta) {
@@ -344,6 +361,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         this.dataTracker.startTracking(BOWL_POS, new BlockPos(0, 0, 0));
         this.dataTracker.startTracking(COLLAR_COLOR, DyeColor.RED.getId());
         this.dataTracker.startTracking(FEELING, DoggoFeeling.NEUTRAL);
+        this.dataTracker.startTracking(IN_LIE_DOWN_POSE, false);
         this.dataTracker.startTracking(MOUTH_OPENED, false);
         this.dataTracker.startTracking(MOUTH_STACK, new ItemStack(Items.AIR));
         this.dataTracker.startTracking(SCRATCHING_SIDE, 0);
@@ -356,19 +374,20 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         this.goalSelector.add(3, new DoggoListeningGoal(this));
         this.goalSelector.add(3, new DoggoScratchGoal(this));
         this.goalSelector.add(4, new DoggoEatGoal(this));
-        this.goalSelector.add(5, new SitGoal(this));
-        this.goalSelector.add(6, new DoggoEatFromBowlGoal(this));
-        this.goalSelector.add(7, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.add(8, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-        this.goalSelector.add(9, new DoggoBegGoal(this, 8.0F));
-        this.goalSelector.add(10, new DoggoPlayTennisBallGoal(this));
-        this.goalSelector.add(10, new DoggoReadyPlayTimeGoal(this));
-        this.goalSelector.add(10, new DoggoSniffingGoal(this));
-        this.goalSelector.add(10, new DoggoStretchGoal(this));
-        this.goalSelector.add(11, new PounceAtTargetGoal(this, 0.4F));
-        this.goalSelector.add(12, new WanderAroundFarGoal(this, 1.0D));
-        this.goalSelector.add(13, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(13, new LookAroundGoal(this));
+        this.goalSelector.add(5, new DoggoLieDownGoal(this));
+        this.goalSelector.add(6, new SitGoal(this));
+        this.goalSelector.add(7, new DoggoEatFromBowlGoal(this));
+        this.goalSelector.add(8, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.add(9, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+        this.goalSelector.add(10, new DoggoBegGoal(this, 8.0F));
+        this.goalSelector.add(11, new DoggoPlayTennisBallGoal(this));
+        this.goalSelector.add(12, new DoggoReadyPlayTimeGoal(this));
+        this.goalSelector.add(13, new DoggoSniffingGoal(this));
+        this.goalSelector.add(13, new DoggoStretchGoal(this));
+        this.goalSelector.add(14, new PounceAtTargetGoal(this, 0.4F));
+        this.goalSelector.add(15, new WanderAroundFarGoal(this, 1.0D));
+        this.goalSelector.add(16, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.add(16, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new TrackOwnerAttackerGoal(this));
         this.targetSelector.add(2, new AttackWithOwnerGoal(this));
@@ -402,6 +421,10 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     public boolean isEntityClose(Entity entity, double distance) {
         return !entity.isSpectator() && this.squaredDistanceTo(entity) < distance;
+    }
+
+    public boolean isInLieDownPose() {
+        return this.dataTracker.get(IN_LIE_DOWN_POSE);
     }
 
     public boolean isOwnerClose() {
@@ -465,6 +488,16 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         }
     }
 
+    @Override
+    public void setAngerTime(int angerTime) {
+        this.dataTracker.set(ANGER_TIME, angerTime);
+    }
+
+    @Override
+    public void setAngryAt(@Nullable UUID angryAt) {
+        this.angryAt = angryAt;
+    }
+
     public void setBegging(boolean begging) {
         this.dataTracker.set(BEGGING, begging);
     }
@@ -483,6 +516,10 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     public void setFeeling(DoggoFeeling doggoFeeling) {
         this.dataTracker.set(FEELING, doggoFeeling);
+    }
+
+    public void setInLieDownPose(boolean inLieDownPose) {
+        this.dataTracker.set(IN_LIE_DOWN_POSE, inLieDownPose);
     }
 
     public void setJustStretched(boolean justStretched) {
@@ -662,6 +699,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         BOWL_POS = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.BLOCK_POS);
         COLLAR_COLOR = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.INTEGER);
         FEELING = DataTracker.registerData(DoggoEntity.class, TrackedDoggoData.DOGGO_FEELING);
+        IN_LIE_DOWN_POSE = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         MOUTH_OPENED = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
         MOUTH_STACK = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
         SCRATCHING_SIDE = DataTracker.registerData(DoggoEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -669,32 +707,6 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         PICKABLE_DROP_FILTER = (itemEntity) -> !itemEntity.cannotPickup() && itemEntity.isAlive();
         FOLLOWABLE_DROP_FILTER = (entity) -> entity.isAlive();
         ANGER_TIME_RANGE = TimeHelper.betweenSeconds(20, 39);
-    }
-
-    @Override
-    public int getAngerTime() {
-        return this.dataTracker.get(ANGER_TIME);
-    }
-
-    @Override
-    public void setAngerTime(int angerTime) {
-        this.dataTracker.set(ANGER_TIME, angerTime);
-    }
-
-    @Nullable
-    @Override
-    public UUID getAngryAt() {
-        return this.angryAt;
-    }
-
-    @Override
-    public void setAngryAt(@Nullable UUID angryAt) {
-        this.angryAt = angryAt;
-    }
-
-    @Override
-    public void chooseRandomAngerTime() {
-        this.setAngerTime(ANGER_TIME_RANGE.get(this.random));
     }
 
     @Override
