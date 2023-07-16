@@ -60,11 +60,13 @@ public class DogBowl extends BlockWithEntity implements BlockEntityProvider {
 	public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
 		if(state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
+
             if (blockEntity instanceof DogBowlEntity) {
                 ItemScatterer.spawn(world, pos, (DogBowlEntity)blockEntity);
                 // update comparators
                 world.updateComparators(pos,this);
             }
+
             super.onStateReplaced(state, world, pos, newState, moved);
         }
 	}
@@ -73,6 +75,7 @@ public class DogBowl extends BlockWithEntity implements BlockEntityProvider {
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
 		if(itemStack.hasCustomName()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos);
+
 			if (blockEntity instanceof DogBowlEntity) {
 				((DogBowlEntity) blockEntity).setCustomName(itemStack.getName());
 			}

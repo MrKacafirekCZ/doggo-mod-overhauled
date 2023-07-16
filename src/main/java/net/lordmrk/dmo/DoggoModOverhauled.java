@@ -97,8 +97,11 @@ public class DoggoModOverhauled implements ModInitializer {
 		registerItem("tennis_ball", TENNIS_BALL);
 
 		addBowlsToItemGroup(ItemGroups.COLORED_BLOCKS, Items.PINK_BANNER);
+
 		addBowlsToItemGroup(ItemGroups.FUNCTIONAL, Items.PINK_BANNER);
+
 		addTennisBallToItemGroup(ItemGroups.TOOLS, Items.ENDER_EYE);
+
 		addBowlsToItemGroup(DOG_STUFF_REGISTRY_KEY, null);
 		addTennisBallToItemGroup(DOG_STUFF_REGISTRY_KEY, null);
 
