@@ -23,5 +23,11 @@
     
     "entity.doggomodoverhauled.doggo": "Doggo",
 
-    "item.doggomodoverhauled.tennis_ball": "Tennis Ball"
+    "item.doggomodoverhauled.tennis_ball": "Tennis Ball",
+
+    "rei.doggomodoverhauled.dog_bowl.description.1": "Dog bowls can be colored using all 16 color dyes.",
+    "rei.doggomodoverhauled.dog_bowl.description.2": "You can put food in by right-clicking it and putting the item in the slot.",
+    "rei.doggomodoverhauled.dog_bowl.description.3": "You can also rename a dog bowl using an anvil. Only dogs with matching name will eat from it.",
+    "rei.doggomodoverhauled.tennis_ball.description.1": "Right-click to throw the ball.",
+    "rei.doggomodoverhauled.tennis_ball.description.2": "Though be careful when you're near glass panes."
 }

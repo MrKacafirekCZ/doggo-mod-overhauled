@@ -12,9 +12,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ReiPlugin implements REIClientPlugin {
 
     @Override
@@ -23,11 +20,16 @@ public class ReiPlugin implements REIClientPlugin {
     }
 
     private void registerDescriptions(DisplayRegistry registry) {
-        addDescriptionToDogBowls(registry, "Dog bowls can be colored using all 16 color dyes.", "You can put food in by right-clicking it and putting the item in the slot.");
-        addDescription(registry, DoggoModOverhauled.TENNIS_BALL, "Right-click to throw the ball.", "Though be careful when you're near glass panes.");
+        addDescriptionToDogBowls(registry,
+                Text.translatable("rei.doggomodoverhauled.dog_bowl.description.1"),
+                Text.translatable("rei.doggomodoverhauled.dog_bowl.description.2"),
+                Text.translatable("rei.doggomodoverhauled.dog_bowl.description.3"));
+        addDescription(registry, DoggoModOverhauled.TENNIS_BALL,
+                Text.translatable("rei.doggomodoverhauled.tennis_ball.description.1"),
+                Text.translatable("rei.doggomodoverhauled.tennis_ball.description.2"));
     }
 
-    private void addDescriptionToDogBowls(DisplayRegistry registry, String... lines) {
+    private void addDescriptionToDogBowls(DisplayRegistry registry, Text... lines) {
         addDescription(registry, DoggoModOverhauled.DOG_BOWL_WHITE, lines);
         addDescription(registry, DoggoModOverhauled.DOG_BOWL_LIGHT_GRAY, lines);
         addDescription(registry, DoggoModOverhauled.DOG_BOWL_GRAY, lines);
@@ -46,20 +48,15 @@ public class ReiPlugin implements REIClientPlugin {
         addDescription(registry, DoggoModOverhauled.DOG_BOWL_PINK, lines);
     }
 
-    private void addDescription(DisplayRegistry registry, Block block, String... lines) {
+    private void addDescription(DisplayRegistry registry, Block block, Text... lines) {
         addDescription(registry, block.asItem(), lines);
     }
 
-    private void addDescription(DisplayRegistry registry, Item item, String... lines) {
+    private void addDescription(DisplayRegistry registry, Item item, Text... lines) {
         ItemStack itemStack = item.getDefaultStack();
         DefaultInformationDisplay info = DefaultInformationDisplay.createFromEntry(EntryStacks.of(itemStack), itemStack.getName());
 
-        List<Text> texts = new ArrayList<>();
-        for(String line : lines) {
-            texts.add(Text.of(line));
-        }
-
-        info.lines(texts);
+        info.lines(lines);
         registry.add(info);
     }
 }
