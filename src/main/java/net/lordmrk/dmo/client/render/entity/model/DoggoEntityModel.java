@@ -15,7 +15,7 @@ import net.minecraft.client.render.entity.model.TintableAnimalModel;
 import net.minecraft.util.math.MathHelper;
 
 public class DoggoEntityModel<T extends DoggoEntity> extends TintableAnimalModel<T> {
-	
+
 	/**
 	 * The key of the real head model part, whose value is {@value}.
 	 */
@@ -47,6 +47,38 @@ public class DoggoEntityModel<T extends DoggoEntity> extends TintableAnimalModel
 	protected final ModelPart realTail;
 	protected final ModelPart neck;
 	protected final ModelPart mouth;
+
+	protected static final float DEGREES_1   = 0.01745329f;
+	protected static final float DEGREES_5   = 0.08726646f;
+	protected static final float DEGREES_10  = 0.17453292f;
+	protected static final float DEGREES_15  = 0.26179938f;
+	protected static final float DEGREES_20  = 0.34906585f;
+	protected static final float DEGREES_25  = 0.43633231f;
+	protected static final float DEGREES_30  = 0.52359877f;
+	protected static final float DEGREES_35  = 0.61086523f;
+	protected static final float DEGREES_40  = 0.69813170f;
+	protected static final float DEGREES_45  = 0.78539816f;
+	protected static final float DEGREES_50  = 0.87266462f;
+	protected static final float DEGREES_55  = 0.95993108f;
+	protected static final float DEGREES_60  = 1.04719755f;
+	protected static final float DEGREES_65  = 1.13446401f;
+	protected static final float DEGREES_70  = 1.22173047f;
+	protected static final float DEGREES_72  = 1.25663706f;
+	protected static final float DEGREES_75  = 1.30899694f;
+	protected static final float DEGREES_80  = 1.39626340f;
+	protected static final float DEGREES_85  = 1.48352986f;
+	protected static final float DEGREES_90  = 1.57079632f;
+	protected static final float DEGREES_95  = 1.65806279f;
+	protected static final float DEGREES_100 = 1.74532925f;
+	protected static final float DEGREES_105 = 1.83259571f;
+	protected static final float DEGREES_110 = 1.91986217f;
+	protected static final float DEGREES_115 = 2.00712864f;
+	protected static final float DEGREES_120 = 2.09439510f;
+	protected static final float DEGREES_125 = 2.18166156f;
+	protected static final float DEGREES_130 = 2.26892802f;
+	protected static final float DEGREES_180 = 3.14159265f;
+	protected static final float DEGREES_270 = 4.71238898f;
+	protected static final float DEGREES_333 = 5.81194641f;
 
 	public DoggoEntityModel(ModelPart root) {
 		this.head = root.getChild(EntityModelPartNames.HEAD);
@@ -123,24 +155,6 @@ public class DoggoEntityModel<T extends DoggoEntity> extends TintableAnimalModel
 			this.mouth.pitch = 0f;
 		}
 	}
-	
-	/*
-	Angles
-	  5 degrees = 0.08726646f
-	 10 degrees = 0.17453292f
-	 20 degrees = 0.34906585f
-	 30 degrees = 0.52359877f
-	 40 degrees = 0.69813170f
-	 50 degrees = 0.87266462f
-	 60 degrees = 1.04719755f
-	 70 degrees = 1.22173047f
-	 80 degrees = 1.39626340f
-	 90 degrees = 1.57079632f
-	100 degrees = 1.74532925f
-	110 degrees = 1.91986217f
-	120 degrees = 2.09439510f
-	130 degrees = 2.26892802f
-	 */
 	
 	private void tail(DoggoEntity doggoEntity, float h) {
 		if(!doggoEntity.isInSittingPose() && !doggoEntity.isAction(DoggoAction.LISTENING) && !doggoEntity.isAction(DoggoAction.SCRATCHING)) {

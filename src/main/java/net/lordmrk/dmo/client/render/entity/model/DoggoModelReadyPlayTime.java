@@ -12,29 +12,29 @@ public class DoggoModelReadyPlayTime extends DoggoEntityModel<DoggoEntity> {
 
     @Override
     public void animateModel(DoggoEntity doggoEntity, float f, float g, float h) {
-        playTime(doggoEntity);
+        playTime();
     }
 
-    private void playTime(DoggoEntity doggoEntity) {
+    private void playTime() {
         this.head.setPivot(-1.0F, 14.0F, -7.0F);
         this.head.roll = 0f;
         this.leftFrontLeg.setPivot(0.5F, 18.0F, -4.0F);
-        this.leftFrontLeg.pitch = -0.87266462f;
-        this.leftFrontLeg.yaw = -0.52359877f;
+        this.leftFrontLeg.pitch = -DEGREES_50;
+        this.leftFrontLeg.yaw = -DEGREES_30;
         this.leftHindLeg.setPivot(0.5F, 16.0F, 7.0F);
         this.leftHindLeg.pitch = 0f;
         this.leftHindLeg.yaw = 0f;
         this.neck.setPivot(-1.0F, 15.5F, -2.5F);
-        this.neck.pitch = 1.5707964F;
+        this.neck.pitch = DEGREES_90;
         this.neck.yaw = 0f;
         this.rightFrontLeg.setPivot(-2.5F, 18.0F, -4.0F);
-        this.rightFrontLeg.pitch = -0.87266462f;
-        this.rightFrontLeg.yaw = 0.52359877f;
+        this.rightFrontLeg.pitch = -DEGREES_50;
+        this.rightFrontLeg.yaw = DEGREES_30;
         this.rightHindLeg.setPivot(-2.5F, 16.0F, 7.0F);
         this.rightHindLeg.pitch = 0f;
         this.rightHindLeg.yaw = 0f;
         this.tail.setPivot(-1.0F, 12.0F, 8.0F);
         this.torso.setPivot(0.0F, 14.0F, 2.0F);
-        this.torso.pitch = 1.7453293f;
+        this.torso.pitch = DEGREES_100;
     }
 }

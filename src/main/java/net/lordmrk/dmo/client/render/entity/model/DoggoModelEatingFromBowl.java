@@ -13,14 +13,14 @@ public class DoggoModelEatingFromBowl extends DoggoEntityModel<DoggoEntity> {
 	@Override
 	public void animateModel(DoggoEntity doggoEntity, float f, float g, float h) {
 		this.head.setPivot(-1.0F, 13.5F, -7.0F);
-		this.torso.pitch = 1.5707964F;
+		this.torso.pitch = DEGREES_90;
 		this.neck.setPivot(-1.0F, 14.0F, -3.0F);
 		this.neck.pitch = this.torso.pitch;
 		this.rightFrontLeg.setPivot(-2.5F, 16.0F, -4.0F);
 		this.leftFrontLeg.setPivot(0.5F, 16.0F, -4.0F);
 		this.rightHindLeg.pitch = MathHelper.cos(f * 0.6662F) * 1.4F * g;
-		this.leftHindLeg.pitch = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.4F * g;
-		this.rightFrontLeg.pitch = MathHelper.cos(f * 0.6662F + 3.1415927F) * 1.4F * g;
+		this.leftHindLeg.pitch = MathHelper.cos(f * 0.6662F + DEGREES_180) * 1.4F * g;
+		this.rightFrontLeg.pitch = MathHelper.cos(f * 0.6662F + DEGREES_180) * 1.4F * g;
 		this.leftFrontLeg.pitch = MathHelper.cos(f * 0.6662F) * 1.4F * g;
 		this.neck.yaw = 0f;
 		this.head.roll = 0f;

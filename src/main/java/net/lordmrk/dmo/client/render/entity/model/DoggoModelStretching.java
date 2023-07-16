@@ -15,26 +15,28 @@ public class DoggoModelStretching extends DoggoEntityModel<DoggoEntity> {
 		float anim = (float) (-(1 / (1 + Math.pow(2.7182818F, -(MathHelper.sin((doggoEntity.getAnimationTick() - 20) / 40F) * 12))) * 7));
 
 		this.head.setPivot(-1.0F, 13.5F - anim / 2.5F, -7.0F - anim / 3.8F);
-		this.head.pitch = anim * 0.08726646f;
+		this.head.pitch = anim * DEGREES_5;
 		this.head.roll = 0f;
 		this.torso.setPivot(0.0F, 14.0F - anim / 2.2F, 2.0F);
-		this.torso.pitch = 1.5707964F - anim * 0.08726646f;
+		this.torso.pitch = DEGREES_90 - anim * DEGREES_5;
 		this.neck.setPivot(-1.0F, 14.0F - anim / 1.5F, -3.0F - anim / 3.8F);
 		this.neck.yaw = 0f;
-		this.neck.pitch = 1.5707964F - anim * 0.01745329f;
+		this.neck.pitch = DEGREES_90 - anim * DEGREES_10;
+		this.tail.setPivot(-1.0F, 12.0F, 8.0F + anim / 3F);
+		this.realTail.pitch = -anim * DEGREES_10;
+
 		this.leftFrontLeg.setPivot(0.5F, 16.0F - anim / 1.5F, -4.0F);
 		this.leftFrontLeg.yaw = 0f;
-		this.leftFrontLeg.pitch = anim * 0.17453292f;
-		this.leftHindLeg.setPivot(0.5F, 16.0F, 7.0F);
-		this.leftHindLeg.yaw = 0f;
-		this.leftHindLeg.pitch = -anim * 0.00872665f;
+		this.leftFrontLeg.pitch = anim * DEGREES_10;
 		this.rightFrontLeg.setPivot(-2.5F, 16.0F - anim / 1.5F, -4.0F);
 		this.rightFrontLeg.yaw = 0f;
-		this.rightFrontLeg.pitch = anim * 0.17453292f;
+		this.rightFrontLeg.pitch = anim * DEGREES_10;
+
+		this.leftHindLeg.setPivot(0.5F, 16.0F, 7.0F);
+		this.leftHindLeg.yaw = 0f;
+		this.leftHindLeg.pitch = -anim * DEGREES_5;
 		this.rightHindLeg.setPivot(-2.5F, 16.0F, 7.0F);
 		this.rightHindLeg.yaw = 0f;
-		this.rightHindLeg.pitch = -anim * 0.00872665f;
-		this.tail.setPivot(-1.0F, 12.0F, 8.0F + anim / 3F);
-		this.realTail.pitch = -anim * 0.17453292f;
+		this.rightHindLeg.pitch = -anim * DEGREES_5;
 	}
 }
