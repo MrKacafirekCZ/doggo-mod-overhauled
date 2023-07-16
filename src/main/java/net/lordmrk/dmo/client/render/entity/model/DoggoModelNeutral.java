@@ -34,10 +34,10 @@ public class DoggoModelNeutral extends DoggoEntityModel<DoggoEntity> {
 		this.tail.setPivot(-1.0F, 18.0F, 8.0F);
 
 		this.leftFrontLeg.setPivot(0.5F, 23.0F, -4.0F);
-		this.leftFrontLeg.yaw = -DEGREES_30;
+		this.leftFrontLeg.yaw = -DEGREES_25;
 		this.leftFrontLeg.pitch = -DEGREES_90;
 		this.rightFrontLeg.setPivot(-2.5F, 23.0F, -4.0F);
-		this.rightFrontLeg.yaw = DEGREES_30;
+		this.rightFrontLeg.yaw = DEGREES_25;
 		this.rightFrontLeg.pitch = -DEGREES_90;
 
 		this.leftHindLeg.setPivot(0.5F, 23.0F, 7.0F);
