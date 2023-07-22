@@ -6,9 +6,16 @@ It is a complete rewrite of the mod [Doggo Mod](https://www.curseforge.com/minec
 ![Imgur](https://imgur.com/qZty4EZ.jpg)  
 
 ## **Blocks and items**
-This mod adds 16 differently colored dog bowls and a tennis ball item.
+This mod adds:
+- 172 different dog beds (16 colors * 11 wood types)
+- 16 differently colored dog bowls
+- 4 differently colored tennis balls
 
-### <ins>Dog Bowl</ins>:
+### <ins>Dog Bed</ins>
+For now this is just a decoration block. Functionality will be added some time in the future.
+![Imgur](https://imgur.com/GJwMICv.jpg)
+
+### <ins>Dog Bowl</ins>
 Any dog with low health if close enough will eat from it if there is food inside it.  
 ![Imgur](https://imgur.com/iMvgNuW.jpg)  
 You can also rename a dog bowl in an anvil to give it a name.  
@@ -16,10 +23,10 @@ Only dogs with matching names will eat from it.
 ![Imgur](https://imgur.com/kl5F8aP.jpg)  
 To break it, you need at least a stone pickaxe.
 
-### <ins>Tennis Ball</ins>:
+### <ins>Tennis Ball</ins>
 A small toy for your dog to play with.  
 You can throw it by right-clicking it. (Though be careful when you're near glass panes)  
-![Imgur](https://imgur.com/nOkmCKj.jpg)
+![Imgur](https://imgur.com/ZxuSt4F.jpg)
 
 ## **Behavior and personality**
 ### <ins>Healing</ins>
@@ -61,6 +68,10 @@ From time to time a dog may stretch.
 
 ## **Crafting Recipes**
 
+### <ins>Dog Bed</ins>
+You can use any wool and any wooden slab.  
+![Imgur](https://imgur.com/iJATy9H.jpg)
+
 ### <ins>Dog Bowl</ins>
 You can use any dye in the recipe.  
 ![Imgur](https://imgur.com/FXNstOc.jpg)  
@@ -68,7 +79,10 @@ You can also recolor the dog bowl.
 ![Imgur](https://imgur.com/CRzMcjC.jpg)
 
 ### <ins>Tennis Ball</ins>
-![Imgur](https://imgur.com/pdNySNQ.jpg)
+You can use 4 different dyes. (red, yellow, lime or light blue)  
+![Imgur](https://imgur.com/pdNySNQ.jpg)  
+You can also recolor the tennis ball.  
+![Imgur](https://imgur.com/opmyVzj.jpg)
 
 ## **Requirements**
 - [Fabric](https://fabricmc.net/use/ "Fabric")
