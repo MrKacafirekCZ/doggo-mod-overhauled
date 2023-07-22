@@ -1,6 +1,6 @@
 package net.lordmrk.dmo.mixin;
 
-import net.lordmrk.dmo.DoggoModOverhauled;
+import net.lordmrk.dmo.DoggoEntities;
 import net.lordmrk.dmo.entity.DoggoEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -37,7 +37,7 @@ public class WolfEntityMixin extends TameableEntity {
                 , target = "Lnet/minecraft/entity/passive/WolfEntity;setOwner(Lnet/minecraft/entity/player/PlayerEntity;)V")
             , cancellable = true)
     private void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> ci) {
-        DoggoEntity doggoEntity = DoggoModOverhauled.DOGGO.spawn((ServerWorld)this.getWorld(), null/*, this.getCustomName()*/, null, this.getBlockPos(), SpawnReason.CONVERSION, true, false);
+        DoggoEntity doggoEntity = DoggoEntities.DOGGO_ENTITY.spawn((ServerWorld)this.getWorld(), null/*, this.getCustomName()*/, null, this.getBlockPos(), SpawnReason.CONVERSION, true, false);
         doggoEntity.setOwner(player);
         this.getWorld().sendEntityStatus(doggoEntity, (byte)7);
         this.remove(RemovalReason.DISCARDED);

@@ -1,8 +1,6 @@
 package net.lordmrk.dmo.entity.ai.goal;
 
-import net.lordmrk.dmo.DoggoAction;
-import net.lordmrk.dmo.DoggoFeeling;
-import net.lordmrk.dmo.DoggoModOverhauled;
+import net.lordmrk.dmo.*;
 import net.lordmrk.dmo.entity.DoggoEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -67,7 +65,7 @@ public class DoggoReadyPlayTimeGoal extends Goal {
             return false;
         }
 
-        if(!livingEntity.getStackInHand(Hand.MAIN_HAND).isOf(DoggoModOverhauled.TENNIS_BALL)) {
+        if(!livingEntity.getStackInHand(Hand.MAIN_HAND).isIn(DoggoItemTags.TENNIS_BALL)) {
             return false;
         }
 
@@ -106,7 +104,7 @@ public class DoggoReadyPlayTimeGoal extends Goal {
             return true;
         }
 
-        if(!livingEntity.getStackInHand(Hand.MAIN_HAND).isOf(DoggoModOverhauled.TENNIS_BALL)) {
+        if(!livingEntity.getStackInHand(Hand.MAIN_HAND).isIn(DoggoItemTags.TENNIS_BALL)) {
             return true;
         }
 

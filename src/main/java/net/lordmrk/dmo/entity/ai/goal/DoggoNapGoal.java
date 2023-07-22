@@ -62,6 +62,7 @@ public class DoggoNapGoal extends Goal {
 	@Override
 	public void stop() {
 		this.doggoEntity.setAction(DoggoAction.NEUTRAL);
+		this.doggoEntity.startActionDelay();
 	}
 	
 	@Override

@@ -17,6 +17,7 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
@@ -28,16 +29,24 @@ import net.minecraft.world.World;
 public class DogBowl extends BlockWithEntity implements BlockEntityProvider {
 	
 	protected static final VoxelShape SHAPE = Block.createCuboidShape(2.5, 0.0, 2.5, 13.5, 4.0, 13.5);
-	
-	public DogBowl() {
+
+	private final DyeColor color;
+
+	public DogBowl(DyeColor color) {
 		super(FabricBlockSettings.create().sounds(BlockSoundGroup.STONE).strength(2.0f).requiresTool());
+
+		this.color = color;
 	}
 
 	@Override
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return new DogBowlEntity(pos, state);
 	}
-	
+
+	public DyeColor getColor() {
+		return color;
+	}
+
 	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
@@ -73,12 +82,16 @@ public class DogBowl extends BlockWithEntity implements BlockEntityProvider {
 	
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
-		if(itemStack.hasCustomName()) {
-			BlockEntity blockEntity = world.getBlockEntity(pos);
+		BlockEntity blockEntity = world.getBlockEntity(pos);
 
-			if (blockEntity instanceof DogBowlEntity) {
-				((DogBowlEntity) blockEntity).setCustomName(itemStack.getName());
-			}
+		if (!(blockEntity instanceof DogBowlEntity)) {
+			return;
+		}
+
+		DogBowlEntity dogBowlEntity = (DogBowlEntity) blockEntity;
+
+		if(itemStack.hasCustomName()) {
+			dogBowlEntity.setCustomName(itemStack.getName());
 		}
 	}
 	

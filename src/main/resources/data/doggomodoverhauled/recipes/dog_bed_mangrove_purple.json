@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WW",
+        "PP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:mangrove_slab"
+        },
+        "W": {
+            "item": "minecraft:purple_wool"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:dog_bed_mangrove_purple",
+        "count": 1
+    }
+}

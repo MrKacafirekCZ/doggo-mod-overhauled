@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WW",
+        "PP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:oak_slab"
+        },
+        "W": {
+            "item": "minecraft:cyan_wool"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:dog_bed_oak_cyan",
+        "count": 1
+    }
+}

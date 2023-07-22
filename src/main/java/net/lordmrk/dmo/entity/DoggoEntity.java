@@ -1,10 +1,7 @@
 package net.lordmrk.dmo.entity;
 
 import com.google.common.collect.Sets;
-import net.lordmrk.dmo.DoggoAction;
-import net.lordmrk.dmo.DoggoFeeling;
-import net.lordmrk.dmo.DoggoModOverhauled;
-import net.lordmrk.dmo.TrackedDoggoData;
+import net.lordmrk.dmo.*;
 import net.lordmrk.dmo.block.entity.DogBowlEntity;
 import net.lordmrk.dmo.entity.ai.goal.*;
 import net.minecraft.block.Block;
@@ -35,6 +32,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -66,7 +64,8 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     private static final TrackedData<Boolean> MOUTH_OPENED;
     private static final TrackedData<ItemStack> MOUTH_STACK;
     private static final TrackedData<Integer> SCRATCHING_SIDE;
-    private static final Set<Block> diggableBlocks = Sets.newHashSet(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL, Blocks.SNOW_BLOCK);
+
+    private static final Set<Block> DIGGABLE_BLOCKS = Sets.newHashSet(Blocks.GRASS_BLOCK, Blocks.DIRT, Blocks.SAND, Blocks.RED_SAND, Blocks.GRAVEL, Blocks.SNOW_BLOCK);
     private float begAnimationProgress;
     private float lastBegAnimationProgress;
     private boolean furWet;
@@ -105,7 +104,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     }
 
     public boolean canStartDigging() {
-        return diggableBlocks.contains(this.getWorld().getBlockState(this.getBlockPos().down()).getBlock());
+        return DIGGABLE_BLOCKS.contains(this.getWorld().getBlockState(this.getBlockPos().down()).getBlock());
     }
 
     @Override
@@ -122,8 +121,9 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        DoggoEntity doggoEntity = DoggoModOverhauled.DOGGO.create(world);
+        DoggoEntity doggoEntity = DoggoEntities.DOGGO_ENTITY.create(world);
         UUID uuid = this.getOwnerUuid();
+
         if (uuid != null) {
             doggoEntity.setOwnerUuid(uuid);
         }
@@ -286,12 +286,16 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         return getStackInMouth() != null && getStackInMouth().getItem() != Items.AIR;
     }
 
-    public boolean hasStackInMouth(ItemStack item) {
-        return hasStackInMouth() && getStackInMouth() == item;
+    public boolean hasStackInMouth(ItemStack stack) {
+        return hasStackInMouth(stack.getItem());
     }
 
     public boolean hasStackInMouth(Item item) {
         return hasStackInMouth() && getStackInMouth().getItem() == item;
+    }
+
+    public boolean hasStackInMouth(TagKey<Item> tag) {
+        return hasStackInMouth() && getStackInMouth().isIn(tag);
     }
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {

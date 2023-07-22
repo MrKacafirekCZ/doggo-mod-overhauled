@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WW",
+        "PP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:bamboo_slab"
+        },
+        "W": {
+            "item": "minecraft:orange_wool"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:dog_bed_bamboo_orange",
+        "count": 1
+    }
+}

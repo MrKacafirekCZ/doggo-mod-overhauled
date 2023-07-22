@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WW",
+        "PP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:cherry_slab"
+        },
+        "W": {
+            "item": "minecraft:green_wool"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:dog_bed_cherry_green",
+        "count": 1
+    }
+}

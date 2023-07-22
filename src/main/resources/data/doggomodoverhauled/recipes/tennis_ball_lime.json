@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "SSS",
+        "SDS",
+        "SSS"
+    ],
+    "key": {
+        "S": {
+            "item": "minecraft:string"
+        },
+        "D": {
+            "item": "minecraft:lime_dye"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:tennis_ball_lime",
+        "count": 1
+    }
+}

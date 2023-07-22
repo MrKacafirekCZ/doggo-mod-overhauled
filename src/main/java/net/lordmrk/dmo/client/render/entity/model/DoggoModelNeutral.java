@@ -24,7 +24,7 @@ public class DoggoModelNeutral extends DoggoEntityModel<DoggoEntity> {
 	}
 
 	private void lieDown() {
-		this.head.setPivot(-1.0F, 20.0F, -7.0F);
+		this.head.setPivot(-1.0F, 18.0F, -7.0F);
 		this.head.roll = 0f;
 		this.torso.setPivot(0.0F, 20.0F, 2.0F);
 		this.torso.pitch = DEGREES_90;
@@ -34,17 +34,17 @@ public class DoggoModelNeutral extends DoggoEntityModel<DoggoEntity> {
 		this.tail.setPivot(-1.0F, 18.0F, 8.0F);
 
 		this.leftFrontLeg.setPivot(0.5F, 23.0F, -4.0F);
-		this.leftFrontLeg.yaw = -DEGREES_25;
+		this.leftFrontLeg.yaw = -DEGREES_15;
 		this.leftFrontLeg.pitch = -DEGREES_90;
 		this.rightFrontLeg.setPivot(-2.5F, 23.0F, -4.0F);
-		this.rightFrontLeg.yaw = DEGREES_25;
+		this.rightFrontLeg.yaw = DEGREES_15;
 		this.rightFrontLeg.pitch = -DEGREES_90;
 
 		this.leftHindLeg.setPivot(0.5F, 23.0F, 7.0F);
-		this.leftHindLeg.yaw = -DEGREES_30;
+		this.leftHindLeg.yaw = -DEGREES_25;
 		this.leftHindLeg.pitch = -DEGREES_90;
 		this.rightHindLeg.setPivot(-2.5F, 23.0F, 7.0F);
-		this.rightHindLeg.yaw = DEGREES_30;
+		this.rightHindLeg.yaw = DEGREES_25;
 		this.rightHindLeg.pitch = -DEGREES_90;
 	}
 	

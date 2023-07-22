@@ -1,6 +1,8 @@
 package net.lordmrk.dmo.entity.ai.goal;
 
 import net.lordmrk.dmo.DoggoAction;
+import net.lordmrk.dmo.DoggoItemTags;
+import net.lordmrk.dmo.DoggoItems;
 import net.lordmrk.dmo.DoggoModOverhauled;
 import net.lordmrk.dmo.entity.DoggoEntity;
 import net.minecraft.entity.Entity;
@@ -92,7 +94,7 @@ public class DoggoPlayTennisBallGoal extends Goal {
             return true;
         }
 
-        if(this.thrownItemEntity != null || this.itemEntity != null || this.doggoEntity.hasStackInMouth(DoggoModOverhauled.TENNIS_BALL)) {
+        if(this.thrownItemEntity != null || this.itemEntity != null || this.doggoEntity.hasStackInMouth(DoggoItemTags.TENNIS_BALL)) {
             return false;
         }
 
@@ -131,7 +133,7 @@ public class DoggoPlayTennisBallGoal extends Goal {
                         DoggoEntity.PICKABLE_DROP_FILTER);
 
                 for(ItemEntity itemEntity : list) {
-                    if(itemEntity.getStack().getItem() == DoggoModOverhauled.TENNIS_BALL) {
+                    if(itemEntity.getStack().isIn(DoggoItemTags.TENNIS_BALL)) {
                         this.itemEntity = itemEntity;
                         break;
                     }
@@ -153,7 +155,7 @@ public class DoggoPlayTennisBallGoal extends Goal {
 
         if(this.itemEntity != null) {
             if(this.itemEntity.isRemoved()) {
-                if(!this.doggoEntity.hasStackInMouth(DoggoModOverhauled.TENNIS_BALL)) {
+                if(!this.doggoEntity.hasStackInMouth(DoggoItemTags.TENNIS_BALL)) {
                     fail();
                 }
 
@@ -180,7 +182,7 @@ public class DoggoPlayTennisBallGoal extends Goal {
             return;
         }
 
-        if(this.doggoEntity.hasStackInMouth(DoggoModOverhauled.TENNIS_BALL)) {
+        if(this.doggoEntity.hasStackInMouth(DoggoItemTags.TENNIS_BALL)) {
             if(this.doggoEntity.getNavigation().isIdle()) {
                 this.doggoEntity.getNavigation().startMovingTo(this.doggoEntity.getOwner(), 1);
             }

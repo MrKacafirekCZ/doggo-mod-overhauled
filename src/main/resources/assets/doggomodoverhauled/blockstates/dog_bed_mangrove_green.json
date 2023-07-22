@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=east": { "model": "doggomodoverhauled:block/dog_bed_mangrove_green", "y": 90, "uvlock": true},
+        "facing=north": { "model": "doggomodoverhauled:block/dog_bed_mangrove_green"},
+        "facing=south": { "model": "doggomodoverhauled:block/dog_bed_mangrove_green", "y": 180, "uvlock": true},
+        "facing=west": { "model": "doggomodoverhauled:block/dog_bed_mangrove_green", "y": 270, "uvlock": true}
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        { "tag": "doggomodoverhauled:tennis_ball" },
+        { "item": "minecraft:light_blue_dye" }
+    ],
+    "result": {
+        "item": "doggomodoverhauled:tennis_ball_light_blue",
+        "count": 1
+    }
+}

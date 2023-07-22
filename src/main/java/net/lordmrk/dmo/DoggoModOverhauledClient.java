@@ -28,14 +28,17 @@ public class DoggoModOverhauledClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        EntityRendererRegistry.register(DoggoModOverhauled.DOGGO, DoggoEntityRenderer::new);
+        EntityRendererRegistry.register(DoggoEntities.DOGGO_ENTITY, DoggoEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(DOGGO, DoggoEntityModel::getTexturedModelData);
 
         BlockEntityRendererRegistry.register(DoggoModOverhauled.DOG_BOWL_ENTITY, DogBowlBlockEntityRenderer::new);
         ScreenRegistry.register(DoggoModOverhauled.DOG_BOWL_SCREEN_HANDLER, DogBowlScreen::new);
 
-        EntityRendererRegistry.register(DoggoModOverhauled.TENNIS_BALL_ENTITY, (context) ->
-                new FlyingItemEntityRenderer(context));
+        EntityRendererRegistry.register(DoggoEntities.TENNIS_BALL_RED_ENTITY, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(DoggoEntities.TENNIS_BALL_YELLOW_ENTITY, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(DoggoEntities.TENNIS_BALL_LIME_ENTITY, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(DoggoEntities.TENNIS_BALL_LIGHT_BLUE_ENTITY, FlyingItemEntityRenderer::new);
+
         receiveEntityPacket();
     }
 

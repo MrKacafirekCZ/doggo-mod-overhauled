@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WW",
+        "PP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:spruce_slab"
+        },
+        "W": {
+            "item": "minecraft:pink_wool"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:dog_bed_spruce_pink",
+        "count": 1
+    }
+}

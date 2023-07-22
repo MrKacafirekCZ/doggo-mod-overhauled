@@ -1,0 +1,8 @@
+{
+	"parent": "doggomodoverhauled:block/dog_bed",
+	"textures": {
+		"border": "block/bamboo_planks",
+		"bed": "block/black_wool",
+		"particle": "block/bamboo_planks"
+	}
+}

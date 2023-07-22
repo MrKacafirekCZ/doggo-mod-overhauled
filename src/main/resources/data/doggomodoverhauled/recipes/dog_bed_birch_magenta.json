@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WW",
+        "PP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:birch_slab"
+        },
+        "W": {
+            "item": "minecraft:magenta_wool"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:dog_bed_birch_magenta",
+        "count": 1
+    }
+}

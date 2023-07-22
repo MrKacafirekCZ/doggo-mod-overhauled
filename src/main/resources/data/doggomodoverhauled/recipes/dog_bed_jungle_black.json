@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WW",
+        "PP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:jungle_slab"
+        },
+        "W": {
+            "item": "minecraft:black_wool"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:dog_bed_jungle_black",
+        "count": 1
+    }
+}

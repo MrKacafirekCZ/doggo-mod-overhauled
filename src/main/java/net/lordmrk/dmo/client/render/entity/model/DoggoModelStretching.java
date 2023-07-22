@@ -21,7 +21,7 @@ public class DoggoModelStretching extends DoggoEntityModel<DoggoEntity> {
 		this.torso.pitch = DEGREES_90 - anim * DEGREES_5;
 		this.neck.setPivot(-1.0F, 14.0F - anim / 1.5F, -3.0F - anim / 3.8F);
 		this.neck.yaw = 0f;
-		this.neck.pitch = DEGREES_90 - anim * DEGREES_10;
+		this.neck.pitch = DEGREES_90 - anim * DEGREES_1;
 		this.tail.setPivot(-1.0F, 12.0F, 8.0F + anim / 3F);
 		this.realTail.pitch = -anim * DEGREES_10;
 
@@ -34,9 +34,9 @@ public class DoggoModelStretching extends DoggoEntityModel<DoggoEntity> {
 
 		this.leftHindLeg.setPivot(0.5F, 16.0F, 7.0F);
 		this.leftHindLeg.yaw = 0f;
-		this.leftHindLeg.pitch = -anim * DEGREES_5;
+		this.leftHindLeg.pitch = -anim * (DEGREES_1 / 2);
 		this.rightHindLeg.setPivot(-2.5F, 16.0F, 7.0F);
 		this.rightHindLeg.yaw = 0f;
-		this.rightHindLeg.pitch = -anim * DEGREES_5;
+		this.rightHindLeg.pitch = -anim * (DEGREES_1 / 2);
 	}
 }

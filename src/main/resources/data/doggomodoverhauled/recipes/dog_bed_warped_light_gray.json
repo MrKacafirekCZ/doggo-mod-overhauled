@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "WW",
+        "PP"
+    ],
+    "key": {
+        "P": {
+            "item": "minecraft:warped_slab"
+        },
+        "W": {
+            "item": "minecraft:light_gray_wool"
+        }
+    },
+    "result": {
+        "item": "doggomodoverhauled:dog_bed_warped_light_gray",
+        "count": 1
+    }
+}
