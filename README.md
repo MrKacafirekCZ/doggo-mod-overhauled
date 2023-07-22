@@ -12,7 +12,7 @@ This mod adds:
 - 4 differently colored tennis balls
 
 ### <ins>Dog Bed</ins>
-For now this is just a decoration block. Functionality will be added some time in the future.
+For now this is just a decoration block. Functionality will be added some time in the future.  
 ![Imgur](https://imgur.com/GJwMICv.jpg)
 
 ### <ins>Dog Bowl</ins>
@@ -86,11 +86,11 @@ You can also recolor the tennis ball.
 
 ## **Requirements**
 - [Fabric](https://fabricmc.net/use/ "Fabric")
-- [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api "Fabric API")
+- [Fabric API](https://modrinth.com/mod/fabric-api)
 
 ## **Optional mods / Tested mods**
-- [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
-- [Roughly Enough Items](https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items)
+- [Mod Menu](https://modrinth.com/mod/modmenu)
+- [Roughly Enough Items](https://modrinth.com/mod/rei)
 
 ## **Special thanks**
 Special thanks to plantskid for creating the doggo icon. [plantskid's Carrd](https://plantskid.carrd.co "plantskid's Carrd")  
