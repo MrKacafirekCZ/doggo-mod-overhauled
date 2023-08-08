@@ -34,11 +34,16 @@ public class WolfEntityMixin extends TameableEntity {
 
     @Inject(method = "interactMob(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"
             , at = @At(value = "INVOKE"
-                , target = "Lnet/minecraft/world/World;sendEntityStatus(Lnet/minecraft/entity/Entity;B)V", shift = At.Shift.AFTER, ordinal = 0))
+                , target = "Lnet/minecraft/entity/passive/WolfEntity;setOwner(Lnet/minecraft/entity/player/PlayerEntity;)V")
+            , cancellable = true)
     private void interactMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> ci) {
         DoggoEntity doggoEntity = DoggoEntities.DOGGO_ENTITY.spawn((ServerWorld)this.getWorld(), null/*, this.getCustomName()*/, null, this.getBlockPos(), SpawnReason.CONVERSION, true, false);
         doggoEntity.setOwner(player);
+        this.getWorld().sendEntityStatus(doggoEntity, (byte)7);
         this.remove(RemovalReason.DISCARDED);
+
+        ci.cancel();
+        ci.setReturnValue(ActionResult.SUCCESS);
     }
 
     @Override
