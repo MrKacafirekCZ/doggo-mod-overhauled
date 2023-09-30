@@ -97,7 +97,8 @@ Special thanks to plantskid for creating the doggo icon. [plantskid's Carrd](htt
 Special thanks to kaprai for creating the doggo logo. [kaprai's Twitter](https://twitter.com/kapraicraft "kaprai's Twitter")
 
 ## **Contributors**
-- [CapoFantasma97](https://github.com/CapoFantasma97) (Italian translation)
+- [CapoFantasma97](https://github.com/CapoFantasma97) (Italian translation [#4](https://github.com/MrKacafirekCZ/doggo-mod-overhauled/pull/4))
+- [Fuzss](https://github.com/Fuzss) (Fixed compatibility with PuzzleLib mod [#28](https://github.com/MrKacafirekCZ/doggo-mod-overhauled/pull/28))
 
 ## **Other**
 This mod has been inspired by other mods (e.g. [Improved Wolves](https://mrcrayfish.com/mods?id=improvedwolves "Improved Wolves") by MrCrayfish)
