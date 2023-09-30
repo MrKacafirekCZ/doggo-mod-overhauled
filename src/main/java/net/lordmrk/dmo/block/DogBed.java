@@ -1,6 +1,7 @@
 package net.lordmrk.dmo.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.lordmrk.dmo.StringUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.Entity;
@@ -9,6 +10,8 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
@@ -36,13 +39,22 @@ public class DogBed extends HorizontalFacingBlock {
     private final DyeColor color;
     private final WoodType woodType;
 
+    //private final String name;
+
     public DogBed(DyeColor color, WoodType woodType) {
         super(FabricBlockSettings.create().sounds(BlockSoundGroup.WOOD).strength(0.2F).nonOpaque().burnable().pistonBehavior(PistonBehavior.DESTROY));
 
         this.color = color;
+        //String[] woodModColonName = woodType.name().split(":");
+        //this.name = StringUtils.capitalizeEveryWord(color.getName().replaceAll("_", " ")) + " " + StringUtils.capitalizeEveryWord(woodModColonName[woodModColonName.length - 1].replaceAll("_", " ")) + " Dog Bed";
         this.woodType = woodType;
 
         this.setDefaultState(this.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(Properties.HORIZONTAL_FACING);
     }
 
     private void bounceEntity(Entity entity) {
@@ -54,14 +66,14 @@ public class DogBed extends HorizontalFacingBlock {
         }
     }
 
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(Properties.HORIZONTAL_FACING);
-    }
-
     public DyeColor getColor() {
         return color;
     }
+/*
+    @Override
+    public MutableText getName() {
+        return Text.literal(this.name);
+    }*/
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

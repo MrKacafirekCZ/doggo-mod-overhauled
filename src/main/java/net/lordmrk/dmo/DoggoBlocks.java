@@ -124,8 +124,15 @@ public class DoggoBlocks {
 
     static {
         for(WoodType woodType : WoodType.stream().toList()) {
+            //String woodTypeName = woodType.name().replaceAll(":", "_");
+            String woodTypeName = woodType.name();
+
+            if(woodTypeName.contains(":")) {
+                continue;
+            }
+
             for(DyeColor color : COLORS) {
-                BED_LIST.add(new AbstractMap.SimpleEntry<>("dog_bed_" + woodType.name() + "_" + color.getName(), new DogBed(color, woodType)));
+                BED_LIST.add(new AbstractMap.SimpleEntry<>("dog_bed_" + woodTypeName + "_" + color.getName(), new DogBed(color, woodType)));
             }
         }
 

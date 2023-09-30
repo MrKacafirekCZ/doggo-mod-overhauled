@@ -576,7 +576,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
                 } else if (this.furWet || this.canShakeWaterOff) {
                     if (this.shakeProgress == 0.0F) {
                         this.playSound(SoundEvents.ENTITY_WOLF_SHAKE, this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                        this.emitGameEvent(GameEvent.ENTITY_SHAKE);
+                        this.emitGameEvent(GameEvent.ENTITY_ACTION);
                     }
 
                     this.lastShakeProgress = this.shakeProgress;

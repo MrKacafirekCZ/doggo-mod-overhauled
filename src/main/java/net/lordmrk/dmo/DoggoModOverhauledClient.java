@@ -62,7 +62,7 @@ public class DoggoModOverhauledClient implements ClientModInitializer {
             entity.setYaw(yaw);
             entity.setId(entityId);
             entity.setUuid(uuid);
-            MinecraftClient.getInstance().world.addEntity(entityId, entity);
+            MinecraftClient.getInstance().world.addEntity(entity);
         });
     }
 }
