@@ -20,16 +20,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WolfEntity.class)
-public class WolfEntityMixin extends TameableEntity {
+abstract class WolfEntityMixin extends TameableEntity {
 
     protected WolfEntityMixin(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
-    }
-
-    @Nullable
-    @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
     }
 
     @Inject(method = "interactMob(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;"
@@ -44,10 +38,5 @@ public class WolfEntityMixin extends TameableEntity {
 
         ci.cancel();
         ci.setReturnValue(ActionResult.SUCCESS);
-    }
-
-    @Override
-    public EntityView method_48926() {
-        return null;
     }
 }
