@@ -100,5 +100,8 @@ Special thanks to kaprai for creating the doggo logo. [kaprai's Twitter](https:/
 - [CapoFantasma97](https://github.com/CapoFantasma97) (Italian translation [#4](https://github.com/MrKacafirekCZ/doggo-mod-overhauled/pull/4))
 - [Fuzss](https://github.com/Fuzss) (Fixed compatibility with PuzzleLib mod [#28](https://github.com/MrKacafirekCZ/doggo-mod-overhauled/pull/28))
 
+## **Discussions**
+Discuss and vote on features [here](https://github.com/MrKacafirekCZ/doggo-mod-overhauled/discussions).
+
 ## **Other**
 This mod has been inspired by other mods (e.g. [Improved Wolves](https://mrcrayfish.com/mods?id=improvedwolves "Improved Wolves") by MrCrayfish)
