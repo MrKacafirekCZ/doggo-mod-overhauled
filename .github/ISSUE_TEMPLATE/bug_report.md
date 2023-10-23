@@ -23,9 +23,9 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Minecraft version and a list of all mods with their version:**
- - Minecraft version: 1.19.4
- - Doggo Mod Overhauled (Version: 4.1.0)
- - Sodium (Version: 0.4.10)
+ - Minecraft (Version: [INSERT_VERSION])
+ - Doggo Mod Overhauled (Version: [INSERT_VERSION])
+ - Mod Name (Version: [INSERT_VERSION])
 
 **Additional context**
 Add any other context about the problem here.
