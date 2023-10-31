@@ -1,0 +1,27 @@
+{
+    "itemGroup.doggomodoverhauled.doggomodoverhauled": "更好的小狗模组新编",
+    
+    "block.doggomodoverhauled.dog_bowl_entity": "狗粮盆",
+    "block.doggomodoverhauled.named_dog_bowl_entity": "%s的狗粮盆",
+    
+    "block.doggomodoverhauled.dog_bowl_white": "狗粮盆（白）",
+    "block.doggomodoverhauled.dog_bowl_orange": "狗粮盆（橙）",
+    "block.doggomodoverhauled.dog_bowl_magenta": "狗粮盆（品红）",
+    "block.doggomodoverhauled.dog_bowl_light_blue": "狗粮盆（淡蓝）",
+    "block.doggomodoverhauled.dog_bowl_yellow": "狗粮盆（黄）",
+    "block.doggomodoverhauled.dog_bowl_lime": "狗粮盆（黄绿）",
+    "block.doggomodoverhauled.dog_bowl_pink": "狗粮盆（粉）",
+    "block.doggomodoverhauled.dog_bowl_gray": "狗粮盆（灰）",
+    "block.doggomodoverhauled.dog_bowl_light_gray": "狗粮盆（淡灰）",
+    "block.doggomodoverhauled.dog_bowl_cyan": "狗粮盆（青）",
+    "block.doggomodoverhauled.dog_bowl_purple": "狗粮盆（紫）",
+    "block.doggomodoverhauled.dog_bowl_blue": "狗粮盆（蓝）",
+    "block.doggomodoverhauled.dog_bowl_brown": "狗粮盆（棕）",
+    "block.doggomodoverhauled.dog_bowl_green": "狗粮盆（绿）",
+    "block.doggomodoverhauled.dog_bowl_red": "狗粮盆（红）",
+    "block.doggomodoverhauled.dog_bowl_black": "狗粮盆（黑）",
+    
+    "entity.doggomodoverhauled.doggo": "小狗",
+
+    "item.doggomodoverhauled.tennis_ball": "网球"
+}
