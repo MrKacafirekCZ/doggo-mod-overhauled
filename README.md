@@ -99,6 +99,7 @@ Special thanks to kaprai for creating the doggo logo. [kaprai's Twitter](https:/
 ## **Contributors**
 - [CapoFantasma97](https://github.com/CapoFantasma97) (Italian translation [#4](https://github.com/MrKacafirekCZ/doggo-mod-overhauled/pull/4))
 - [Fuzss](https://github.com/Fuzss) (Fixed compatibility with PuzzleLib mod [#28](https://github.com/MrKacafirekCZ/doggo-mod-overhauled/pull/28))
+- [domesios](https://github.com/domesios) (German translation [#42](https://github.com/MrKacafirekCZ/doggo-mod-overhauled/pull/42))
 
 ## **Discussions**
 Discuss and vote on features [here](https://github.com/MrKacafirekCZ/doggo-mod-overhauled/discussions).
