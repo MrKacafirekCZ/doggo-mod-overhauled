@@ -49,12 +49,11 @@ public class DoggoNapGoal extends Goal {
 	
 	@Override
 	public boolean canStop() {
-		return this.doggoEntity.hasBeenDamaged() || this.doggoEntity.isOwnerClose();
+		return this.doggoEntity.hasBeenHurt() || this.doggoEntity.isOwnerClose();
 	}
 
 	@Override
 	public void start() {
-		this.doggoEntity.setDamaged(false);
 		this.doggoEntity.getNavigation().stop();
 		this.doggoEntity.setAction(DoggoAction.NAPPING);
 	}
@@ -62,7 +61,6 @@ public class DoggoNapGoal extends Goal {
 	@Override
 	public void stop() {
 		this.doggoEntity.setAction(DoggoAction.NEUTRAL);
-		this.doggoEntity.startActionDelay();
 	}
 	
 	@Override

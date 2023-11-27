@@ -57,13 +57,11 @@ public class DoggoEatFromBowlGoal extends Goal {
 	
 	@Override
 	public boolean canStop() {
-		return this.doggoEntity.hasBeenDamaged() || this.doggoEntity.getHealth() == this.doggoEntity.getMaxHealth();
+		return this.doggoEntity.hasBeenHurt() || this.doggoEntity.getHealth() == this.doggoEntity.getMaxHealth();
 	}
 
 	@Override
 	public void start() {
-		this.doggoEntity.setDamaged(false);
-		
 		if(waitIfFailed > 0) {
 			waitIfFailed--;
 			return;

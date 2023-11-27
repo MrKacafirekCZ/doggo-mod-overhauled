@@ -19,6 +19,7 @@ public class DoggoModOverhauled implements ModInitializer {
 	public static final String MODID = "doggomodoverhauled";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
+	public static final Identifier JADE_DOG_BOWL = new Identifier(MODID, "dog_bowl");
 	public static final Identifier DOG_BOWL = new Identifier(MODID, "dog_bowl_entity");
 	public static BlockEntityType<DogBowlEntity> DOG_BOWL_ENTITY;
 	public static final ScreenHandlerType<DogBowlScreenHandler> DOG_BOWL_SCREEN_HANDLER;

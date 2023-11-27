@@ -1,7 +1,6 @@
 package net.lordmrk.dmo.entity.ai.goal;
 
 import net.lordmrk.dmo.entity.DoggoEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
@@ -23,27 +22,7 @@ public class DoggoLieDownGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if(!this.doggoEntity.isTamed()) {
-            return false;
-        }
-
-        if(this.doggoEntity.isBaby()) {
-            return false;
-        }
-
-        if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
-            return false;
-        }
-
-        if(!this.doggoEntity.isOnGround()) {
-            return false;
-        }
-
-        if(this.doggoEntity.hasBeenDamaged()) {
-            return false;
-        }
-
-        if(this.doggoEntity.hasAngerTime()) {
+        if(!this.doggoEntity.shouldGoalStart()) {
             return false;
         }
 
@@ -51,25 +30,7 @@ public class DoggoLieDownGoal extends Goal {
             return false;
         }
 
-        if(this.doggoEntity.getActionDelay() > 0) {
-            return false;
-        }
-
-        LivingEntity livingEntity = this.doggoEntity.getOwner();
-
-        if(livingEntity == null) {
-            return true;
-        }
-
-        if(this.doggoEntity.squaredDistanceTo(livingEntity) > 144.0D) {
-            return false;
-        }
-
-        if(livingEntity.getAttacker() != null) {
-            return false;
-        }
-
-        return this.doggoEntity.getRandom().nextFloat() < 0.01F;
+        return this.doggoEntity.getRandom().nextFloat() < 0.001F;
     }
 
     @Override
@@ -78,24 +39,8 @@ public class DoggoLieDownGoal extends Goal {
             return true;
         }
 
-        if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
+        if(this.doggoEntity.shouldGoalStop()) {
             return true;
-        }
-
-        if(!this.doggoEntity.isOnGround()) {
-            return true;
-        }
-
-        if(this.doggoEntity.hasBeenDamaged()) {
-            return true;
-        }
-
-        if(this.doggoEntity.hasAngerTime()) {
-            return true;
-        }
-
-        if(!this.doggoEntity.isOwnerClose()) {
-           return true;
         }
 
         return false;
@@ -111,7 +56,6 @@ public class DoggoLieDownGoal extends Goal {
     @Override
     public void stop() {
         this.doggoEntity.setInLieDownPose(false);
-        this.doggoEntity.startActionDelay();
     }
 
     @Override

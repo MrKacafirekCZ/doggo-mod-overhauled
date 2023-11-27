@@ -216,6 +216,9 @@
     "item.doggomodoverhauled.tennis_ball_lime": "Lime Tennis Ball",
     "item.doggomodoverhauled.tennis_ball_light_blue": "Light Blue Tennis Ball",
 
+    "config.jade.plugin_doggomodoverhauled.dog_bowl": "Dog Bowl",
+    "jade.doggomodoverhauled.dog_bowl.custom_name": "%s's Dog Bowl",
+
     "rei.doggomodoverhauled.dog_bed.description.1": "Currently this block has no functionality and only serves as a decoration block for the time being.",
     "rei.doggomodoverhauled.dog_bowl.description.1": "Dog bowls can be colored using all 16 color dyes.",
     "rei.doggomodoverhauled.dog_bowl.description.2": "You can put food in by right-clicking it and putting the item in the slot.",

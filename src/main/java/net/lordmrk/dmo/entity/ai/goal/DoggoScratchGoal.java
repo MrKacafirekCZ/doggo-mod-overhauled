@@ -3,17 +3,22 @@ package net.lordmrk.dmo.entity.ai.goal;
 import java.util.EnumSet;
 
 import net.lordmrk.dmo.DoggoAction;
+import net.lordmrk.dmo.DoggoGoalData;
 import net.lordmrk.dmo.entity.DoggoEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 
 public class DoggoScratchGoal extends Goal {
 
+	private int actionTick;
 	private final DoggoEntity doggoEntity;
-	private int scratchTick;
+	private final DoggoGoalData goalData;
+
+	private static final DoggoAction ACTION = DoggoAction.SCRATCHING;
 
 	public DoggoScratchGoal(DoggoEntity doggoEntity) {
 		this.doggoEntity = doggoEntity;
+		this.goalData = doggoEntity.getGoalData(ACTION);
 		this.setControls(EnumSet.of(Goal.Control.JUMP, Goal.Control.MOVE, Goal.Control.LOOK));
 	}
 
@@ -24,27 +29,11 @@ public class DoggoScratchGoal extends Goal {
 
 	@Override
 	public boolean canStart() {
-		if(!this.doggoEntity.isTamed()) {
+		if (!this.goalData.canStart()) {
 			return false;
 		}
 
-		if(this.doggoEntity.isBaby()) {
-			return false;
-		}
-
-		if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
-			return false;
-		}
-
-		if(!this.doggoEntity.isOnGround()) {
-			return false;
-		}
-
-		if(this.doggoEntity.hasBeenDamaged()) {
-			return false;
-		}
-
-		if(this.doggoEntity.hasAngerTime()) {
+		if(!this.doggoEntity.shouldGoalStart()) {
 			return false;
 		}
 
@@ -52,46 +41,16 @@ public class DoggoScratchGoal extends Goal {
 			return false;
 		}
 
-		if(this.doggoEntity.getActionDelay() > 0) {
-			return false;
-		}
-
-		LivingEntity livingEntity = this.doggoEntity.getOwner();
-
-		if(livingEntity == null) {
-			return true;
-		}
-
-		if(this.doggoEntity.squaredDistanceTo(livingEntity) > 144.0D) {
-			return false;
-		}
-
-		if(livingEntity.getAttacker() != null) {
-			return false;
-		}
-
-		return this.doggoEntity.getRandom().nextFloat() < 0.01F;
+		return this.goalData.shouldStart();
 	}
 	
 	@Override
 	public boolean canStop() {
-		if(this.scratchTick <= 0) {
+		if(this.actionTick <= 0) {
 			return true;
 		}
 
-		if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
-			return true;
-		}
-
-		if(!this.doggoEntity.isOnGround()) {
-			return true;
-		}
-
-		if(this.doggoEntity.hasBeenDamaged()) {
-			return true;
-		}
-
-		if(this.doggoEntity.hasAngerTime()) {
+		if(this.doggoEntity.shouldGoalStop()) {
 			return true;
 		}
 
@@ -100,23 +59,25 @@ public class DoggoScratchGoal extends Goal {
 
 	@Override
 	public void start() {
-		this.doggoEntity.setDamaged(false);
 		this.doggoEntity.getNavigation().stop();
-		this.doggoEntity.setAction(DoggoAction.SCRATCHING);
+		this.doggoEntity.setAction(ACTION);
 		this.doggoEntity.setActionTicking(true);
 		this.doggoEntity.setScratchingSide(this.doggoEntity.getRandom().nextInt(2));
-		this.scratchTick = 60 + this.doggoEntity.getRandom().nextInt(80);
+		this.actionTick = 40 + this.doggoEntity.getRandom().nextInt(100);
+
+		this.goalData.start();
 	}
 
 	@Override
 	public void stop() {
 		this.doggoEntity.setAction(DoggoAction.NEUTRAL);
 		this.doggoEntity.setActionTicking(false);
-		this.doggoEntity.startActionDelay();
+
+		this.goalData.stop();
 	}
 	
 	@Override
 	public void tick() {
-		this.scratchTick--;
+		this.actionTick--;
 	}
 }

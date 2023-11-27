@@ -3,46 +3,40 @@ package net.lordmrk.dmo.entity.ai.goal;
 import net.lordmrk.dmo.DoggoAction;
 import net.lordmrk.dmo.DoggoGoalData;
 import net.lordmrk.dmo.entity.DoggoEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
-public class DoggoStretchGoal extends Goal {
+public class DoggoPlayInSnowGoal extends Goal {
 
     private int actionTick;
     private final DoggoEntity doggoEntity;
     private final DoggoGoalData goalData;
 
-    private static final DoggoAction ACTION = DoggoAction.STRETCHING;
+    private static final DoggoAction ACTION = DoggoAction.PLAY_IN_SNOW;
 
-    public DoggoStretchGoal(DoggoEntity doggoEntity) {
+    public DoggoPlayInSnowGoal(DoggoEntity doggoEntity) {
         this.doggoEntity = doggoEntity;
         this.goalData = doggoEntity.getGoalData(ACTION);
         this.setControls(EnumSet.of(Goal.Control.JUMP, Goal.Control.MOVE, Goal.Control.LOOK));
     }
 
     @Override
-    public boolean shouldContinue() {
-        return !canStop();
-    }
-
-    @Override
     public boolean canStart() {
-        if(!this.goalData.canStart()) {
+        if (!this.goalData.canStart()) {
             return false;
         }
 
-        if(!this.doggoEntity.shouldGoalStart()) {
+        if (!this.doggoEntity.shouldGoalStart()) {
             return false;
         }
 
-        if(this.doggoEntity.hasStackInMouth()) {
+        if (this.doggoEntity.hasStackInMouth()) {
             return false;
         }
 
-        if(this.doggoEntity.hasJustStretched()) {
-            this.doggoEntity.setJustStretched(false);
+        if (!isInSnow()) {
             return false;
         }
 
@@ -51,15 +45,32 @@ public class DoggoStretchGoal extends Goal {
 
     @Override
     public boolean canStop() {
-        if(this.actionTick <= 0) {
+        if (this.actionTick <= 0) {
             return true;
         }
 
-        if(this.doggoEntity.shouldGoalStop()) {
+        if (this.doggoEntity.shouldGoalStop()) {
             return true;
         }
 
         return false;
+    }
+
+    private boolean isInSnow() {
+        if (this.doggoEntity.getWorld().getBlockState(this.doggoEntity.getBlockPos()).getBlock() == Blocks.SNOW) {
+            return true;
+        }
+
+        if (this.doggoEntity.getWorld().getBlockState(this.doggoEntity.getBlockPos().down()).getBlock() == Blocks.SNOW_BLOCK) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean shouldContinue() {
+        return !canStop();
     }
 
     @Override
@@ -68,7 +79,7 @@ public class DoggoStretchGoal extends Goal {
         this.doggoEntity.setAction(ACTION);
         this.doggoEntity.setActionTicking(true);
 
-        this.actionTick = 180;
+        this.actionTick = this.doggoEntity.getRandom().nextBoolean() ? 45 : 68;
 
         this.goalData.start();
     }
@@ -77,7 +88,6 @@ public class DoggoStretchGoal extends Goal {
     public void stop() {
         this.doggoEntity.setAction(DoggoAction.NEUTRAL);
         this.doggoEntity.setActionTicking(false);
-        this.doggoEntity.setJustStretched(true);
 
         this.goalData.stop();
     }

@@ -7,7 +7,7 @@
   "description": "Doggo Mod Overhauled is a Minecraft mod that just makes dogs better.",
   "authors": [
     {
-      "name": "MrKacafirekCZ - The Developer",
+      "name": "LordMrK - The Developer",
       "contact": {
         "homepage": "https://ko-fi.com/lordmrk"
       }
@@ -31,6 +31,18 @@
       "contact": {
         "homepage": "https://github.com/CapoFantasma97"
       }
+    },
+    {
+      "name": "Fuzss - Compatibility with PuzzleLib",
+      "contact": {
+        "homepage": "https://github.com/Fuzss"
+      }
+    },
+    {
+      "name": "domesion - German translation",
+      "contact": {
+        "homepage": "https://github.com/domesios"
+      }
     }
   ],
   "contact": {
@@ -49,6 +61,9 @@
     ],
     "client": [
       "net.lordmrk.dmo.DoggoModOverhauledClient"
+    ],
+    "jade": [
+      "net.lordmrk.dmo.modules.jade.JadePlugin"
     ],
     "rei_client": [
       "net.lordmrk.dmo.modules.rei.ReiPlugin"

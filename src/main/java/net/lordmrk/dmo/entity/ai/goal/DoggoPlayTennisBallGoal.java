@@ -90,7 +90,7 @@ public class DoggoPlayTennisBallGoal extends Goal {
             return true;
         }
 
-        if(this.doggoEntity.hasBeenDamaged()) {
+        if(this.doggoEntity.hasBeenHurt()) {
             return true;
         }
 
@@ -103,7 +103,6 @@ public class DoggoPlayTennisBallGoal extends Goal {
 
     @Override
     public void start() {
-        this.doggoEntity.setDamaged(false);
         this.doggoEntity.getNavigation().stop();
         this.doggoEntity.getNavigation().startMovingTo(thrownItemEntity, 1.5);
     }

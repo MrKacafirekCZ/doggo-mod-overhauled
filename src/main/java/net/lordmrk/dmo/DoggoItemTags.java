@@ -12,6 +12,6 @@ public class DoggoItemTags {
     public static final TagKey<Item> TENNIS_BALL = of("tennis_ball");
 
     private static TagKey<Item> of(String id) {
-        return TagKey.of(RegistryKeys.ITEM, new Identifier(id));
+        return TagKey.of(RegistryKeys.ITEM, new Identifier(DoggoModOverhauled.MODID, id));
     }
 }

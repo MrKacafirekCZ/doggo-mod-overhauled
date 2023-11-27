@@ -20,16 +20,12 @@ repositories {
 	// Roughly Enough Items
 	maven { url "https://maven.shedaniel.me" }
 
-	// Just Enough Items
+	// Jade
 	maven {
-		// location of the maven that hosts JEI files
-		name = "Progwml6 maven"
-		url = "https://dvs1.progwml6.com/files/maven/"
-	}
-	maven {
-		// location of a maven mirror for JEI files, as a fallback
-		name = "ModMaven"
-		url = "https://modmaven.dev"
+		url "https://www.cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
 	}
 }
 
@@ -52,12 +48,8 @@ dependencies {
 	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.rei_version}"
 
-	// Just Enough Items
-	// compile against the JEI API but do not include it at runtime
-	//modCompileOnlyApi("mezz.jei:jei-${project.mc_version}-common-api:${project.jei_version}")
-	//modCompileOnlyApi("mezz.jei:jei-${project.mc_version}-fabric-api:${project.jei_version}")
-	// at runtime, use the full JEI jar for Fabric
-	//modRuntimeOnly("mezz.jei:jei-${project.mc_version}-fabric:${project.jei_version}")
+	// Jade
+	modImplementation "curse.maven:jade-324717:${project.jade_id}"
 }
 
 processResources {
@@ -100,29 +92,5 @@ publishing {
 		// Notice: This block does NOT have the same function as the block in the top level.
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
-	}
-}
-
-loom {
-	runs {
-		datagenClient {
-			inherit client
-			name "Data Generation"
-			vmArg "-Dfabric-api.datagen"
-			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-			vmArg "-Dfabric-api.datagen.modid=${modid}"
-
-			runDir "build/datagen"
-		}
-	}
-}
-
-sourceSets {
-	main {
-		resources {
-			srcDirs += [
-					'src/main/generated'
-			]
-		}
 	}
 }

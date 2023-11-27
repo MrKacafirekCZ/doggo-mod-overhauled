@@ -78,7 +78,7 @@ public class DoggoReadyPlayTimeGoal extends Goal {
 
     @Override
     public boolean canStop() {
-        if(this.doggoEntity.hasBeenDamaged()) {
+        if(this.doggoEntity.hasBeenHurt()) {
             return true;
         }
 
@@ -122,7 +122,6 @@ public class DoggoReadyPlayTimeGoal extends Goal {
 
     @Override
     public void start() {
-        this.doggoEntity.setDamaged(false);
         this.doggoEntity.getNavigation().stop();
         this.doggoEntity.setAction(DoggoAction.PLAY_TIME);
         this.doggoEntity.setActionTicking(true);

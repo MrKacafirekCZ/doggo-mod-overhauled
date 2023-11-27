@@ -215,6 +215,9 @@
 	"item.doggomodoverhauled.tennis_ball_yellow": "Gelber Tennisball",
 	"item.doggomodoverhauled.tennis_ball_lime": "Limettenfarbener Tennisball",
 	"item.doggomodoverhauled.tennis_ball_light_blue": "Hellblauer Tennisball",
+
+	"config.jade.plugin_doggomodoverhauled.dog_bowl": "Dog Bowl",
+	"jade.doggomodoverhauled.dog_bowl.custom_name": "%s's Dog Bowl",
 	
 	"rei.doggomodoverhauled.dog_bed.description.1": "Derzeit hat dieser Block keine Funktionalität und dient vorerst nur als Dekorationsblock.",
 	"rei.doggomodoverhauled.dog_bowl.description.1": "Hundeschüsseln können mit allen 16 Farbstoffen eingefärbt werden.",

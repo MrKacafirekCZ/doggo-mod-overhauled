@@ -2,6 +2,7 @@ package net.lordmrk.dmo.entity.ai.goal;
 
 import net.lordmrk.dmo.DoggoAction;
 import net.lordmrk.dmo.DoggoFeeling;
+import net.lordmrk.dmo.DoggoGoalData;
 import net.lordmrk.dmo.entity.DoggoEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -14,9 +15,10 @@ import java.util.EnumSet;
 
 public class DoggoSniffingGoal extends Goal {
 
-    private final DoggoEntity doggoEntity;
     private boolean canDig;
     private boolean canStop;
+    private final DoggoEntity doggoEntity;
+    private final DoggoGoalData goalData;
     private int minSniffs;
     private int minDigTime;
     private boolean navigateBack;
@@ -24,8 +26,11 @@ public class DoggoSniffingGoal extends Goal {
     private double startY;
     private double startZ;
 
+    private static final DoggoAction ACTION = DoggoAction.SNIFFING;
+
     public DoggoSniffingGoal(DoggoEntity doggoEntity) {
         this.doggoEntity = doggoEntity;
+        this.goalData = doggoEntity.getGoalData(ACTION);
         this.setControls(EnumSet.of(Goal.Control.JUMP, Control.MOVE, Goal.Control.LOOK));
     }
 
@@ -36,31 +41,11 @@ public class DoggoSniffingGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if(!this.doggoEntity.isTamed()) {
+        if(!this.goalData.canStart()) {
             return false;
         }
 
-        if(this.doggoEntity.isBaby()) {
-            return false;
-        }
-
-        if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
-            return false;
-        }
-
-        if(!this.doggoEntity.isOnGround()) {
-            return false;
-        }
-
-        if(this.doggoEntity.isInSittingPose()) {
-            return false;
-        }
-
-        if(this.doggoEntity.hasBeenDamaged()) {
-            return false;
-        }
-
-        if(this.doggoEntity.hasAngerTime()) {
+        if(!this.doggoEntity.shouldGoalStart()) {
             return false;
         }
 
@@ -68,25 +53,7 @@ public class DoggoSniffingGoal extends Goal {
             return false;
         }
 
-        if(this.doggoEntity.getActionDelay() > 0) {
-            return false;
-        }
-
-        LivingEntity livingEntity = this.doggoEntity.getOwner();
-
-        if(livingEntity == null) {
-            return false;
-        }
-
-        if(this.doggoEntity.squaredDistanceTo(livingEntity) > 144.0D) {
-            return false;
-        }
-
-        if(livingEntity.getAttacker() != null) {
-            return false;
-        }
-
-        return this.doggoEntity.getRandom().nextFloat() < 0.01F;
+        return goalData.shouldStart();
     }
 
     @Override
@@ -95,19 +62,7 @@ public class DoggoSniffingGoal extends Goal {
             return true;
         }
 
-        if(this.doggoEntity.isInsideWaterOrBubbleColumn()) {
-            return true;
-        }
-
-        if(!this.doggoEntity.isOnGround()) {
-            return true;
-        }
-
-        if(this.doggoEntity.hasBeenDamaged()) {
-            return true;
-        }
-
-        if(this.doggoEntity.hasAngerTime()) {
+        if(this.doggoEntity.shouldGoalStop()) {
             return true;
         }
 
@@ -116,7 +71,6 @@ public class DoggoSniffingGoal extends Goal {
 
     @Override
     public void start() {
-        this.doggoEntity.setDamaged(false);
         this.doggoEntity.getNavigation().stop();
         this.doggoEntity.setAction(DoggoAction.SNIFFING);
         this.doggoEntity.setActionTicking(true);
@@ -127,6 +81,8 @@ public class DoggoSniffingGoal extends Goal {
         this.startZ = this.doggoEntity.getZ();
         this.minSniffs = 5 + this.doggoEntity.getRandom().nextInt(3);
         this.minDigTime = 60 + this.doggoEntity.getRandom().nextInt(5) * 10;
+
+        this.goalData.start();
     }
 
     @Override
@@ -134,10 +90,11 @@ public class DoggoSniffingGoal extends Goal {
         this.doggoEntity.setAction(DoggoAction.NEUTRAL);
         this.doggoEntity.setActionTicking(false);
         this.doggoEntity.setFeeling(DoggoFeeling.NEUTRAL);
-        this.doggoEntity.startActionDelay();
         this.canStop = false;
         this.canDig = false;
         this.navigateBack = false;
+
+        this.goalData.stop();
     }
 
     @Override

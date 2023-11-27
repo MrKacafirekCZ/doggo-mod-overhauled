@@ -3,14 +3,13 @@ package net.lordmrk.dmo.block.entity;
 import net.lordmrk.dmo.DoggoModOverhauled;
 import net.lordmrk.dmo.inventory.ImplementedInventory;
 import net.lordmrk.dmo.screen.DogBowlScreenHandler;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -41,6 +40,7 @@ public class DogBowlEntity extends BlockEntity implements NamedScreenHandlerFact
 		return handler;
 	}
 
+	@Override
 	public Text getCustomName() {
 		return this.customName;
 	}
@@ -51,11 +51,23 @@ public class DogBowlEntity extends BlockEntity implements NamedScreenHandlerFact
 	}
 
 	public int getFoodHunger() {
-		if(!items.get(0).isEmpty() && items.get(0).getItem().isFood()) {
-			return items.get(0).getItem().getFoodComponent().getHunger() * 4;
+		if (this.items.isEmpty()) {
+			return 0;
 		}
 
-		return 0;
+		ItemStack itemStack = this.items.get(0);
+
+		if (itemStack.isEmpty()) {
+			return 0;
+		}
+
+		Item item = itemStack.getItem();
+
+		if(!item.isFood()) {
+			return 0;
+		}
+
+		return item.getFoodComponent().getHunger() * 4;
 	}
 
 	@Override
@@ -64,33 +76,45 @@ public class DogBowlEntity extends BlockEntity implements NamedScreenHandlerFact
 	}
 
 	public Text getName() {
-		return this.customName != null ?
-				Text.translatable(
-						"block.doggomodoverhauled.named_dog_bowl_entity",
-						this.customName.getString()) :
-				Text.translatable("block.doggomodoverhauled.dog_bowl_entity");
+		if (this.customName == null) {
+			return Text.translatable("block.doggomodoverhauled.dog_bowl_entity");
+		}
+
+		return Text.translatable("block.doggomodoverhauled.named_dog_bowl_entity", this.customName.getString());
 	}
 
 	public void foodEaten() {
-		if(items.get(0) != null && !items.get(0).isEmpty()) {
-			items.get(0).decrement(1);
-			markDirty();
+		if (this.items.isEmpty()) {
+			return;
 		}
+
+		ItemStack itemStack = this.items.get(0);
+
+		if (itemStack.isEmpty()) {
+			return;
+		}
+
+		itemStack.decrement(1);
+		this.markDirty();
 	}
 
 	@Override
 	public void readNbt(NbtCompound nbt) {
-		items.clear();
-		Inventories.readNbt(nbt, items);
+		this.items.clear();
+
+		Inventories.readNbt(nbt, this.items);
+
 		if(nbt.contains("CustomName", 8)) {
 			this.customName = Text.Serializer.fromJson(nbt.getString("CustomName"));
 		}
-		markDirty();
+
+		this.markDirty();
 	}
 
 	@Override
 	public void writeNbt(NbtCompound nbt) {
-		nbt = Inventories.writeNbt(nbt, items);
+		nbt = Inventories.writeNbt(nbt, this.items);
+
 		if(this.customName != null) {
 			nbt.putString("CustomName", Text.Serializer.toJson(this.customName));
 		}
@@ -101,7 +125,11 @@ public class DogBowlEntity extends BlockEntity implements NamedScreenHandlerFact
 	}
 
 	public boolean hasFood() {
-		return items.get(0) != null && !items.get(0).isEmpty();
+		if (this.items.isEmpty()) {
+			return false;
+		}
+
+		return !items.get(0).isEmpty();
 	}
 
 	public void setCustomName(Text customName) {
@@ -134,16 +162,17 @@ public class DogBowlEntity extends BlockEntity implements NamedScreenHandlerFact
 
 	@Override
 	public void markDirty() {
-		if (this.world != null) {
-			markDirtyInWorld(this.world, this.pos, this.getCachedState());
+		if (this.world == null) {
+			return;
 		}
-	}
 
-	protected void markDirtyInWorld(World world, BlockPos pos, BlockState state) {
-		world.markDirty(pos);
-		if (!world.isClient()) {
-			((ServerWorld) world).getChunkManager().markForUpdate(pos); // Mark changes to be synced to the client.
+		this.world.markDirty(this.pos);
+
+		if (this.world.isClient()) {
+			return;
 		}
+
+		((ServerWorld) this.world).getChunkManager().markForUpdate(pos); // Mark changes to be synced to the client.
 	}
 
 

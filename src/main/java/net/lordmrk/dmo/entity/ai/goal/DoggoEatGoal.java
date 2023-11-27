@@ -40,12 +40,11 @@ public class DoggoEatGoal extends Goal {
 	
 	@Override
 	public boolean canStop() {
-		return this.doggoEntity.hasBeenDamaged() || eating == 0;
+		return this.doggoEntity.hasBeenHurt() || eating == 0;
 	}
 
 	@Override
 	public void start() {
-		this.doggoEntity.setDamaged(false);
 		eating = doggoEntity.getStackInMouth().getItem().getFoodComponent().getHunger() * 4;
 		
 		if(doggoEntity.isSitting()) {

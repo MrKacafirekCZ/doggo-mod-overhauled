@@ -47,6 +47,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -78,17 +80,19 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     public static final Predicate<ItemEntity> PICKABLE_DROP_FILTER;
     public static final Predicate<Entity> FOLLOWABLE_DROP_FILTER;
+
+    public static final double MAX_DISTANCE_FROM_DOGGO = 99.0D;
     public static final double DEFAULT_DISTANCE_FROM_DOGGO = 36.0D;
 
     //Client sided only
     private float animationTick;
+    private int animation;
 
     //Server sided only
-    private int actionDelay;
-    private boolean damaged;
     private boolean justStretched;
     private int mouthOpenedTick;
     private boolean readyToPlay = false;
+    private Map<DoggoAction, DoggoGoalData> goalDataMap;
 
     public DoggoEntity(EntityType<? extends DoggoEntity> entityType, World world) {
         super(entityType, world);
@@ -132,7 +136,6 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     }
 
     public boolean damage(DamageSource source, float amount) {
-        damaged = true;
         dropStackInMouth();
         return super.damage(source, amount);
     }
@@ -142,10 +145,6 @@ public class DoggoEntity extends TameableEntity implements Angerable {
             ItemScatterer.spawn(this.getWorld(), this.getX(), this.getY(), this.getZ(), getStackInMouth());
             setStackInMouth(null);
         }
-    }
-
-    public int getActionDelay() {
-        return actionDelay;
     }
 
     @Override
@@ -174,6 +173,10 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         }
 
         return SoundEvents.ENTITY_WOLF_AMBIENT;
+    }
+
+    public int getAnimation() {
+        return animation;
     }
 
     public float getAnimationTick() {
@@ -217,6 +220,10 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     public float getFurWetBrightnessMultiplier(float tickDelta) {
         return Math.min(0.5F + MathHelper.lerp(tickDelta, this.lastShakeProgress, this.shakeProgress) / 2.0F * 0.5F, 1.0F);
+    }
+
+    public DoggoGoalData getGoalData(DoggoAction action) {
+        return goalDataMap.get(action);
     }
 
     protected SoundEvent getHurtSound(DamageSource source) {
@@ -270,8 +277,8 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         }
     }
 
-    public boolean hasBeenDamaged() {
-        return damaged;
+    public boolean hasBeenHurt() {
+        return hurtTime > 0;
     }
 
     public boolean hasJustStretched() {
@@ -300,55 +307,130 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
-        Item item = itemStack.getItem();
 
         if (this.getWorld().isClient) {
             boolean bl = this.isOwner(player) || this.isTamed() || itemStack.isOf(Items.BONE) && !this.isTamed() && !this.hasAngerTime();
             return bl ? ActionResult.CONSUME : ActionResult.PASS;
         }
 
-        if (this.isTamed()) {
-            if(!this.isBaby() && !this.hasStackInMouth() && isAction(DoggoAction.NEUTRAL)) {
-                if(item.isFood() && item.getFoodComponent().isMeat()) {
-                    setStackInMouth(itemStack.split(1));
-                    return ActionResult.SUCCESS;
-                }
-            }
-
-            if (this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
-                if (!player.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                }
-
-                this.heal((float)item.getFoodComponent().getHunger());
-                return ActionResult.SUCCESS;
-            }
-
-            if (!(item instanceof DyeItem)) {
-                ActionResult actionResult = super.interactMob(player, hand);
-                if ((!actionResult.isAccepted() || this.isBaby()) && this.isOwner(player)) {
-                    this.setSitting(!this.isSitting());
-                    this.jumping = false;
-                    this.navigation.stop();
-                    this.setTarget(null);
-                    return ActionResult.SUCCESS;
-                }
-
-                return actionResult;
-            }
-
-            DyeColor dyeColor = ((DyeItem)item).getColor();
-            if (dyeColor != this.getCollarColor()) {
-                this.setCollarColor(dyeColor);
-                if (!player.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                }
-
-                return ActionResult.SUCCESS;
-            }
+        if (!this.isTamed()) {
+            return super.interactMob(player, hand);
         }
 
-        return super.interactMob(player, hand);
+        if (this.interactMobCollar(player, itemStack)) {
+            return ActionResult.SUCCESS;
+        }
+
+        if (this.isBaby()) {
+            if (this.interactMobHealBreedingItem(player, itemStack)) {
+                return ActionResult.SUCCESS;
+            }
+
+            return interactMobOther(player, hand);
+        }
+
+        if (player.isSneaking()) {
+            return interactMobOther(player, hand);
+        }
+
+        if (this.interactMobGiveBreedingItem(itemStack)) {
+            return ActionResult.SUCCESS;
+        }
+
+        this.interactMobSit();
+        return ActionResult.SUCCESS;
+    }
+
+    private boolean interactMobCollar(PlayerEntity player, ItemStack itemStackInHand) {
+        Item item = itemStackInHand.getItem();
+
+        if (!(item instanceof DyeItem)) {
+            return false;
+        }
+
+        DyeColor dyeColor = ((DyeItem)item).getColor();
+
+        if (dyeColor == this.getCollarColor()) {
+            return false;
+        }
+
+        this.setCollarColor(dyeColor);
+        PlayerUtils.decrementItemStackIfNotCreative(player, itemStackInHand);
+
+        return true;
+    }
+
+    private boolean interactMobGiveBreedingItem(ItemStack itemStackInHand) {
+        if (!isAction(DoggoAction.NEUTRAL)) {
+            return false;
+        }
+
+        if (this.hasStackInMouth()) {
+            return false;
+        }
+
+        if(!this.isBreedingItem(itemStackInHand)) {
+            return false;
+        }
+
+        this.setStackInMouth(itemStackInHand.split(1));
+        return true;
+    }
+
+    private boolean interactMobHealBreedingItem(PlayerEntity player, ItemStack itemStackInHand) {
+        Item item = itemStackInHand.getItem();
+
+        if (!isAction(DoggoAction.NEUTRAL)) {
+            return false;
+        }
+
+        if (this.hasStackInMouth()) {
+            return false;
+        }
+
+        if(!this.isBreedingItem(itemStackInHand)) {
+            return false;
+        }
+
+        if(this.getHealth() >= this.getMaxHealth()) {
+            return false;
+        }
+
+        this.heal((float)item.getFoodComponent().getHunger());
+        PlayerUtils.decrementItemStackIfNotCreative(player, itemStackInHand);
+
+        return true;
+    }
+
+    private ActionResult interactMobOther(PlayerEntity player, Hand hand) {
+        ActionResult actionResult = super.interactMob(player, hand);
+
+        if (!this.isOwner(player)) {
+            return actionResult;
+        }
+
+        if (actionResult.isAccepted()) {
+            return actionResult;
+        }
+
+        this.interactMobSit();
+        return ActionResult.SUCCESS;
+    }
+
+    private void interactMobSit() {
+        this.setSitting(!this.isSitting());
+        this.jumping = false;
+        this.navigation.stop();
+        this.setTarget(null);
+    }
+
+    public boolean isBreedingItem(Item item) {
+        return item.isFood() && item.getFoodComponent().isMeat();
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return isBreedingItem(stack.getItem());
     }
 
     public boolean isFurWet() {
@@ -373,25 +455,38 @@ public class DoggoEntity extends TameableEntity implements Angerable {
 
     @Override
     protected void initGoals() {
+        super.initGoals();
+
+        this.goalDataMap = new HashMap<>();
+        this.goalDataMap.put(DoggoAction.LISTENING, new DoggoGoalData(this.getRandom(), 400, 40));
+        this.goalDataMap.put(DoggoAction.PLAY_IN_SNOW, new DoggoGoalData(this.getRandom(), 200, 20));
+        this.goalDataMap.put(DoggoAction.SCRATCHING, new DoggoGoalData(this.getRandom(), 200, 20));
+        this.goalDataMap.put(DoggoAction.SNIFFING, new DoggoGoalData(this.getRandom(), 200, 20));
+        this.goalDataMap.put(DoggoAction.STRETCHING, new DoggoGoalData(this.getRandom(), 800, 80));
+
         this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(1, new DoggoEscapeDangerGoal(this, 1.5D));
+        this.goalSelector.add(1, new DoggoAvoidLlamaGoal(this, LlamaEntity.class, 24.0F, 1.5D, 1.5D));
         this.goalSelector.add(2, new DoggoNapGoal(this));
+        this.goalSelector.add(3, new DoggoEatGoal(this));
+        this.goalSelector.add(3, new DoggoLieDownGoal(this));
         this.goalSelector.add(3, new DoggoListeningGoal(this));
         this.goalSelector.add(3, new DoggoScratchGoal(this));
-        this.goalSelector.add(4, new DoggoEatGoal(this));
-        this.goalSelector.add(5, new DoggoLieDownGoal(this));
-        this.goalSelector.add(6, new SitGoal(this));
-        this.goalSelector.add(7, new DoggoEatFromBowlGoal(this));
-        this.goalSelector.add(8, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.add(9, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-        this.goalSelector.add(10, new DoggoBegGoal(this, 8.0F));
-        this.goalSelector.add(11, new DoggoPlayTennisBallGoal(this));
-        this.goalSelector.add(12, new DoggoReadyPlayTimeGoal(this));
-        this.goalSelector.add(13, new DoggoSniffingGoal(this));
-        this.goalSelector.add(13, new DoggoStretchGoal(this));
-        this.goalSelector.add(14, new PounceAtTargetGoal(this, 0.4F));
-        this.goalSelector.add(15, new WanderAroundFarGoal(this, 1.0D));
-        this.goalSelector.add(16, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(16, new LookAroundGoal(this));
+        this.goalSelector.add(4, new SitGoal(this));
+        this.goalSelector.add(5, new DoggoEatFromBowlGoal(this));
+        this.goalSelector.add(6, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.add(7, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+        this.goalSelector.add(8, new AnimalMateGoal(this, 1.0D));
+        this.goalSelector.add(9, new DoggoBegGoal(this, 8.0F));
+        this.goalSelector.add(10, new DoggoPlayTennisBallGoal(this));
+        this.goalSelector.add(11, new DoggoReadyPlayTimeGoal(this));
+        this.goalSelector.add(12, new DoggoPlayInSnowGoal(this));
+        this.goalSelector.add(12, new DoggoSniffingGoal(this));
+        this.goalSelector.add(12, new DoggoStretchGoal(this));
+        this.goalSelector.add(13, new PounceAtTargetGoal(this, 0.4F));
+        this.goalSelector.add(14, new WanderAroundFarGoal(this, 1.0D));
+        this.goalSelector.add(15, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.add(15, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new TrackOwnerAttackerGoal(this));
         this.targetSelector.add(2, new AttackWithOwnerGoal(this));
@@ -401,10 +496,6 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         this.targetSelector.add(6, new UntamedActiveTargetGoal(this, TurtleEntity.class, false, TurtleEntity.BABY_TURTLE_ON_LAND_FILTER));
         this.targetSelector.add(7, new ActiveTargetGoal(this, AbstractSkeletonEntity.class, false));
         this.targetSelector.add(8, new UniversalAngerGoal(this, true));
-
-        //this.goalSelector.add(1, new WolfEntity.WolfEscapeDangerGoal(1.5D));
-        //this.goalSelector.add(3, new WolfEntity.AvoidLlamaGoal(this, LlamaEntity.class, 24.0F, 1.5D, 1.5D));
-        //this.goalSelector.add(7, new AnimalMateGoal(this, 1.0D));
     }
 
     public boolean isAction(DoggoAction doggoAction) {
@@ -514,10 +605,6 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         this.dataTracker.set(COLLAR_COLOR, color.getId());
     }
 
-    public void setDamaged(boolean damaged) {
-        this.damaged = damaged;
-    }
-
     public void setFeeling(DoggoFeeling doggoFeeling) {
         this.dataTracker.set(FEELING, doggoFeeling);
     }
@@ -550,8 +637,96 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         this.dataTracker.set(MOUTH_STACK, itemStack);
     }
 
-    public void startActionDelay() {
-        actionDelay = 200 + this.random.nextInt(20) * 10;
+    public boolean shouldGoalStart() {
+        if(!this.isTamed()) {
+            return false;
+        }
+
+        if (this.isBaby()) {
+            return false;
+        }
+
+        if (this.hasAngerTime()) {
+            return false;
+        }
+
+        if (this.hasBeenHurt()) {
+           return false;
+        }
+
+        if (this.isFurWet()) {
+            return false;
+        }
+
+        if (this.isInLove()) {
+            return false;
+        }
+
+        if(!this.isOnGround()) {
+            return false;
+        }
+
+        if(this.isInsideWaterOrBubbleColumn()) {
+            return false;
+        }
+
+        LivingEntity livingEntity = this.getOwner();
+
+        if(livingEntity == null) {
+            return false;
+        }
+
+        if(livingEntity.getAttacker() != null) {
+            return false;
+        }
+
+        if(!this.isEntityClose(livingEntity, DoggoEntity.MAX_DISTANCE_FROM_DOGGO)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean shouldGoalStop() {
+        if(this.hasAngerTime()) {
+            return true;
+        }
+
+        if (this.hasBeenHurt()) {
+            return false;
+        }
+
+        if (this.isFurWet()) {
+            return false;
+        }
+
+        if (this.isInLove()) {
+            return true;
+        }
+
+        if(!this.isOnGround()) {
+            return true;
+        }
+
+        if(this.isInsideWaterOrBubbleColumn()) {
+            return true;
+        }
+
+        LivingEntity livingEntity = this.getOwner();
+
+        if(livingEntity == null) {
+            return true;
+        }
+
+        if(livingEntity.getAttacker() != null) {
+            return true;
+        }
+
+        if(!this.isEntityClose(livingEntity, DoggoEntity.MAX_DISTANCE_FROM_DOGGO)) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -601,9 +776,21 @@ public class DoggoEntity extends TameableEntity implements Angerable {
                     }
                 }
             }
+
+            if (!this.getWorld().isClient) {
+                for(DoggoGoalData data : this.goalDataMap.values()) {
+                    data.tick();
+                }
+            }
         }
 
         if(this.getWorld().isClient) {
+            if(isAction(DoggoAction.NEUTRAL)) {
+                animation = 0;
+            } else {
+                animation++;
+            }
+
             if(isActionTicking()) {
                 this.animationTick = (this.animationTick + 0.5f) % 360;
             } else if(this.animationTick > 0) {
@@ -629,14 +816,17 @@ public class DoggoEntity extends TameableEntity implements Angerable {
                         }
                     }
                     break;
+                case PLAY_IN_SNOW:
+                    if (this.animation % 45 == 32) {
+                        for (int i = 0; i < 10; i++) {
+                            this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.SNOW_BLOCK.getDefaultState()), this.getX() + x, this.getY(), this.getZ() + z, 0.2, 0.1, 0.2);
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
         } else {
-            if(actionDelay > 0) {
-                actionDelay--;
-            }
-
             if(hasMouthOpened()) {
                 this.mouthOpenedTick++;
 
@@ -663,11 +853,16 @@ public class DoggoEntity extends TameableEntity implements Angerable {
                         }
 
                         if(sound != null) {
-                            this.getWorld().playSound(null,
-                                    this.getX(), this.getY(), this.getZ(),
-                                    sound, SoundCategory.NEUTRAL, 0.2f, 0f);
+                            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), sound, SoundCategory.NEUTRAL, 0.2f, 0f);
                         }
                     }
+                    break;
+                case PLAY_IN_SNOW:
+                    if (this.animation % 45 == 32) {
+                        this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BLOCK_SNOW_BREAK, SoundCategory.NEUTRAL, 0.5f, 0f);
+                    }
+                    break;
+                default:
                     break;
             }
         }

@@ -30,16 +30,17 @@ public class DoggoEntityRenderer extends MobEntityRenderer<DoggoEntity, DoggoEnt
         this.addFeature(new DoggoCollarFeatureRenderer(this));
         this.addFeature(new DoggoHeldItemFeatureRenderer(this));
 
-        doggoModels.put(DoggoAction.DIGGING, new DoggoModelDigging(context.getPart(DoggoModOverhauledClient.DOGGO)));
-        doggoModels.put(DoggoAction.EATING, new DoggoModelNeutral(context.getPart(DoggoModOverhauledClient.DOGGO)));
-        doggoModels.put(DoggoAction.EATING_FROM_BOWL, new DoggoModelEatingFromBowl(context.getPart(DoggoModOverhauledClient.DOGGO)));
-        doggoModels.put(DoggoAction.LISTENING, new DoggoModelListening(context.getPart(DoggoModOverhauledClient.DOGGO)));
-        doggoModels.put(DoggoAction.NAPPING, new DoggoModelNapping(context.getPart(DoggoModOverhauledClient.DOGGO)));
-        doggoModels.put(DoggoAction.NEUTRAL, new DoggoModelNeutral(context.getPart(DoggoModOverhauledClient.DOGGO)));
-        doggoModels.put(DoggoAction.PLAY_TIME, new DoggoModelReadyPlayTime(context.getPart(DoggoModOverhauledClient.DOGGO)));
-        doggoModels.put(DoggoAction.SCRATCHING, new DoggoModelScratching(context.getPart(DoggoModOverhauledClient.DOGGO)));
-        doggoModels.put(DoggoAction.SNIFFING, new DoggoModelSniffing(context.getPart(DoggoModOverhauledClient.DOGGO)));
-        doggoModels.put(DoggoAction.STRETCHING, new DoggoModelStretching(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.DIGGING, new DoggoModelDigging(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.EATING, new DoggoModelNeutral(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.EATING_FROM_BOWL, new DoggoModelEatingFromBowl(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.LISTENING, new DoggoModelListening(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.NAPPING, new DoggoModelNapping(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.NEUTRAL, new DoggoModelNeutral(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.PLAY_IN_SNOW, new DoggoModelPlayInSnow(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.PLAY_TIME, new DoggoModelReadyPlayTime(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.SCRATCHING, new DoggoModelScratching(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.SNIFFING, new DoggoModelSniffing(context.getPart(DoggoModOverhauledClient.DOGGO)));
+        this.doggoModels.put(DoggoAction.STRETCHING, new DoggoModelStretching(context.getPart(DoggoModOverhauledClient.DOGGO)));
     }
 
     protected float getAnimationProgress(DoggoEntity doggoEntity, float f) {
@@ -47,7 +48,7 @@ public class DoggoEntityRenderer extends MobEntityRenderer<DoggoEntity, DoggoEnt
     }
 
     public void render(DoggoEntity doggoEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        this.model = doggoModels.get(doggoEntity.getAction());
+        this.model = this.doggoModels.get(doggoEntity.getAction());
 
         if (doggoEntity.isFurWet()) {
             float h = doggoEntity.getFurWetBrightnessMultiplier(g);
