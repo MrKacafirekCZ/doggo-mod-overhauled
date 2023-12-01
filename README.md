@@ -100,6 +100,7 @@ You can also recolor the tennis ball.
 - [Fabric API](https://modrinth.com/mod/fabric-api)
 
 ## **Optional mods / Tested mods**
+- [Jade](https://modrinth.com/mod/jade)
 - [Mod Menu](https://modrinth.com/mod/modmenu)
 - [Roughly Enough Items](https://modrinth.com/mod/rei)
 
