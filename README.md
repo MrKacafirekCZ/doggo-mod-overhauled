@@ -29,6 +29,12 @@ You can throw it by right-clicking it. (Though be careful when you're near glass
 ![Imgur](https://imgur.com/ZxuSt4F.jpg)
 
 ## **Behavior and personality**
+### <ins>Breeding</ins>
+With this mod installed, breeding had to be changed a little bit.  
+To breed dogs, you have to:  
+1. Sneak and hold meat in your hand.
+2. Right-Click two dogs to make them breed.
+
 ### <ins>Healing</ins>
 There are two ways to heal a dog:  
 1. Place down a dog bowl and put food (preferably meat) in it by right-clicking on the dog bowl. If a dog is near a dog bowl and it's not on max health, it will try eating from it.  
@@ -51,6 +57,11 @@ To actually play fetch, you have to:
 2. Once it's interested in the ball then you can throw it.
 
 ![Imgur](https://imgur.com/Oa0JTWD.jpg)
+
+### <ins>Playing in snow</ins>
+When around snow a dog may decide to have fun by playing in it.
+
+![Imgur](https://imgur.com/YsodlPz.jpg)
 
 ### <ins>Scratching its ear</ins>
 From time to time a dog may scratch its ear.  
@@ -89,6 +100,7 @@ You can also recolor the tennis ball.
 - [Fabric API](https://modrinth.com/mod/fabric-api)
 
 ## **Optional mods / Tested mods**
+- [Jade](https://modrinth.com/mod/jade)
 - [Mod Menu](https://modrinth.com/mod/modmenu)
 - [Roughly Enough Items](https://modrinth.com/mod/rei)
 
