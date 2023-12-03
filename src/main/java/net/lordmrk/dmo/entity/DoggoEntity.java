@@ -19,9 +19,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
-import net.minecraft.entity.mob.Angerable;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeItem;
@@ -101,6 +99,64 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         this.setInSittingPose(true);
         this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, -1.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_POWDER_SNOW, -1.0F);
+    }
+
+    @Override
+    public boolean canAttackWithOwner(LivingEntity target, LivingEntity owner) {
+        if (target instanceof AbstractHorseEntity) {
+            AbstractHorseEntity horseEntity = (AbstractHorseEntity) target;
+
+            if (horseEntity.isTame()) {
+                return false;
+            }
+
+            return true;
+        }
+
+        if (target instanceof CreeperEntity) {
+            return false;
+        }
+
+        if (target instanceof GhastEntity) {
+            return false;
+        }
+
+        if (target instanceof WolfEntity) {
+            WolfEntity wolfEntity = (WolfEntity) target;
+
+            if (!wolfEntity.isTamed()) {
+                return true;
+            }
+
+            if (wolfEntity.getOwner() == owner) {
+                return false;
+            }
+
+            return true;
+        }
+
+        if (target instanceof TameableEntity) {
+            TameableEntity tameableEntity = (TameableEntity) target;
+
+            if (tameableEntity.isTamed()) {
+                return false;
+            }
+
+            return true;
+        }
+
+        if (target instanceof PlayerEntity && owner instanceof PlayerEntity) {
+            PlayerEntity targetPlayer = (PlayerEntity) target;
+            PlayerEntity ownerPlayer = (PlayerEntity) owner;
+
+            if (!ownerPlayer.shouldDamagePlayer(targetPlayer)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     public boolean canBeLeashedBy(PlayerEntity player) {
