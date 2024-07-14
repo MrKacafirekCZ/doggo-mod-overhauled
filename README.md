@@ -7,7 +7,7 @@ It is a complete rewrite of the mod [Doggo Mod](https://www.curseforge.com/minec
 
 ## **Blocks and items**
 This mod adds:
-- 172 different dog beds (16 colors * 11 wood types)
+- 176 different dog beds (16 colors * 11 wood types)
 - 16 differently colored dog bowls
 - 4 differently colored tennis balls
 
