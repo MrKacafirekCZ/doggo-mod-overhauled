@@ -24,7 +24,7 @@ public class TennisBall extends Item {
     private final boolean legacy;
 
     public TennisBall(DyeColor color, boolean legacy) {
-        super(new FabricItemSettings().maxCount(16));
+        super(new FabricItemSettings().maxCount(64));
 
         this.color = color;
         this.legacy = legacy;
