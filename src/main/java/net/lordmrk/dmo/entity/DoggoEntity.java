@@ -95,7 +95,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     public DoggoEntity(EntityType<? extends DoggoEntity> entityType, World world) {
         super(entityType, world);
         this.setTamed(true);
-        this.setSitting(true);
+        this.setSitting(false); //new ai
         this.setInSittingPose(true);
         this.setPathfindingPenalty(PathNodeType.POWDER_SNOW, -1.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_POWDER_SNOW, -1.0F);
@@ -156,8 +156,22 @@ public class DoggoEntity extends TameableEntity implements Angerable {
             return true;
         }
 
-        return false;
+        return true; //Enabled dog's ability to help you in a fight
     }
+    @Override
+    public boolean tryAttack(Entity target) {
+        boolean success = super.tryAttack(target);
+
+        if (success && target instanceof LivingEntity) {
+            // Force the enemy mob to target this doggo back
+            if (target instanceof MobEntity mobTarget) {
+                mobTarget.setTarget(this);
+            }
+        }
+
+        return success;
+    }
+
 
     public boolean canBeLeashedBy(PlayerEntity player) {
         return !this.hasAngerTime() && super.canBeLeashedBy(player);
@@ -520,6 +534,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         this.goalDataMap.put(DoggoAction.SNIFFING, new DoggoGoalData(this.getRandom(), 200, 20));
         this.goalDataMap.put(DoggoAction.STRETCHING, new DoggoGoalData(this.getRandom(), 800, 80));
 
+        // 1. Goal Selectors (Actions)
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(1, new DoggoEscapeDangerGoal(this, 1.5D));
         this.goalSelector.add(1, new DoggoAvoidLlamaGoal(this, LlamaEntity.class, 24.0F, 1.5D, 1.5D));
@@ -528,7 +543,7 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         this.goalSelector.add(3, new DoggoLieDownGoal(this));
         this.goalSelector.add(3, new DoggoListeningGoal(this));
         this.goalSelector.add(3, new DoggoScratchGoal(this));
-        this.goalSelector.add(4, new SitGoal(this));
+        this.goalSelector.add(7, new SitGoal(this)); //fix "sit attack"
         this.goalSelector.add(5, new DoggoEatFromBowlGoal(this));
         this.goalSelector.add(6, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.add(7, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
@@ -544,15 +559,17 @@ public class DoggoEntity extends TameableEntity implements Angerable {
         this.goalSelector.add(15, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(15, new LookAroundGoal(this));
 
+        // 2. Target Selectors (Threat Detection & AI Targets)
         this.targetSelector.add(1, new TrackOwnerAttackerGoal(this));
         this.targetSelector.add(2, new AttackWithOwnerGoal(this));
-        this.targetSelector.add(3, (new RevengeGoal(this, new Class[0])).setGroupRevenge(new Class[0]));
-        //this.targetSelector.add(4, new ActiveTargetGoal(this, PlayerEntity.class, 10, true, false, this::shouldAngerAt));
-        //this.targetSelector.add(5, new UntamedActiveTargetGoal(this, AnimalEntity.class, false, FOLLOW_TAMED_PREDICATE));
+        this.targetSelector.add(3, (new RevengeGoal(this)).setGroupRevenge());
+
+        // Custom Hunt targets
         this.targetSelector.add(6, new UntamedActiveTargetGoal(this, TurtleEntity.class, false, TurtleEntity.BABY_TURTLE_ON_LAND_FILTER));
         this.targetSelector.add(7, new ActiveTargetGoal(this, AbstractSkeletonEntity.class, false));
         this.targetSelector.add(8, new UniversalAngerGoal(this, true));
     }
+
 
     public boolean isAction(DoggoAction doggoAction) {
         return getAction() == doggoAction;
@@ -788,7 +805,12 @@ public class DoggoEntity extends TameableEntity implements Angerable {
     @Override
     public void tick() {
         super.tick();
-
+        if (!this.getWorld().isClient && this.getTarget() != null && this.getTarget().isAlive()) {
+            if (this.isInSittingPose() || this.isSitting()) {
+                this.setInSittingPose(false);
+                this.setSitting(false);
+            }
+        } //makes siting pose false when attacking
         if (this.isAlive()) {
             this.lastBegAnimationProgress = this.begAnimationProgress;
             if (this.isBegging()) {
